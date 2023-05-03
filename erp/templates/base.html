@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-MSOJepXZjLUpb40fu0u2QJz0bxUuBYCpJ1xq3q+0kV7ZuAGnfAlhJf3q3qVo8W5E5+5RJhL/SnQ2CC8cB9+MQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            {% comment %} <a class="navbar-brand" href="{% url 'home' %}">My ERP</a> {% endcomment %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'brand_list' %}">Brands</a>
+                    </li>
+                    {% comment %}
+                    Add more navigation links here
+                    {% endcomment %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-Qm7m9HFGkTCy7LMp+aJjK4Z1x/4CO/30ZbzmkYEL0FrFjXNk9P08o3CxWf8urD2IhU6nZa6lLzIOYft/Yr+sA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

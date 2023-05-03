@@ -1,0 +1,318 @@
+
+:root {
+  --textColorPrimary: #FFD700;
+  --textColorPrimaryDarker: #BB5100;
+  --bgColorPrimary: #f1f1f1;
+  --colorPrimary: #333;
+  --bgColorSecondary: #202020;
+  --bgColorTransparent: rgba(0, 0, 0, 0.6);
+  --colorWhite: #fff;
+  --btnBorderColor: #fff;
+  --btnColor: #fff;
+  --textColorSecondary: #777;
+  --boxBorderColor: #ccc;
+  --fontWeightBold: 700;
+  --fontWeightSemiBold: 600;
+  --fontWeightNormal: 500;
+  --fontWeightLight: 100;
+  --fontSizeSmall: 13px;
+  --fontSizeMedium: 19px;
+  --fontSizeLarge: 28px;
+  --fontSizeExtraLarge: 36px;
+  --lineHeightBase: 1.5;
+  --lineHeightLarge: 2;
+}
+
+body {
+    background-color: var(--bgColorPrimary);
+    color: var(--colorPrimary);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .bg-color {
+    background-color: #202020;
+  }
+
+  .navbar {
+    font-size: 20px;
+  }
+
+  .navbar-brand {
+    font-size: var(--fontSizeLarge);
+    font-weight: var(--fontWeightSemiBold);
+  }
+
+  .carousel-caption {
+    background-color: var(--bgColorTransparent);
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .carousel-caption h5,
+  .carousel-caption p {
+    color: var(--colorWhite);
+    font-weight: var(--fontWeightNormal);
+  }
+
+  .carousel-caption a.btn {
+    color: var(--colorWhite);
+    border-color: var(--colorWhite);
+    font-weight: var(--fontWeightNormal);
+    margin-top: 10px;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(100%);
+  }
+
+  .car-card {
+    mb: 30px;
+  }
+
+  .car-card img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+
+  .car-card .card-body {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .textBaseColor {
+    color: var(--textColorPrimary) !important;
+  }
+
+  .collection-header {
+    font-weight: var(--fontWeightLight);
+    padding: 5px;
+    border: 1px solid var(--boxBorderColor);
+    font-size: var(--fontSizeSmall);
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .collection {
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .pull-right {
+    float: right !important;
+  }
+
+  .titulo-veiculo .first-name {
+    font-size: 24px;
+    font-weight: var(--fontWeightBold);
+  }
+
+  .titulo-veiculo .last-name {
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontWeightNormal);
+  }
+
+  .preco-detalhe {
+    font-size: var(--fontSizeLarge);
+    font-weight: var(--fontWeightSemiBold) !important;
+    margin: 8px 0 15px;
+    padding-bottom: 20px;
+    color: #434141;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  linha {
+    list-style-type: disc;
+    /* círculos preenchidos */
+  }
+
+  .veiculo-opcionais ul li::before {
+    content: "\2022";
+    color: var(--textColorSecondary);
+    font-weight: var(--fontWeightBold);
+    display: inline-block;
+    width: .7em;
+    margin-left: -1em;
+    line-height: 2em;
+  }
+
+  .veiculo-opcionais ul {
+    /* list-style: none; */
+    padding-left: 15px;
+  }
+
+  .box-filtro {
+    padding: 15px;
+    border-bottom: 1px solid var(--boxBorderColor);
+}
+
+.box-filtro .filtro-titulo {
+    padding: 0;
+    margin: 10px 0 5px 0!important;
+}
+
+.filtro-titulo {
+    font-size: 18px!important;
+    font-weight: var(--fontWeightSemiBold)!important;
+    text-transform: capitalize!important;
+    border: none;
+}
+
+.box-filtro .filtro-titulo {
+    padding: 0;
+    margin: 10px 0 5px 0!important;
+}
+
+.filtro-titulo {
+    font-size: 18px!important;
+    font-weight: var(--fontWeightSemiBold)!important;
+    text-transform: capitalize!important;
+    border: none;
+}
+
+.sidebar {
+    padding: 30px;
+    position: sticky;
+    overflow-y: auto;
+    top: 88px;
+    height: 100vh;
+    background-color: var(--colorWhite);
+    padding-bottom: 200px;
+    z-index: 9;
+}
+
+.box-filtro {
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    color: var(--textColorSecondary);
+    font-weight: 400!important;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: var(--fontSizeSmall);
+}
+
+.carro-img {
+  max-height: 13vw;
+  min-height: 13vw;
+  overflow: hidden;
+}
+
+.box-veiculo-resultado {
+  background-color: var(--colorWhite);
+  transition-duration: .2s;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--boxBorderColor);
+}
+
+.box-veiculo-resultado .carro-info .pact-result {
+  min-height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.box-veiculo-resultado h2 {
+  font-size: var(--fontSizeMedium);
+  text-transform: uppercase;
+  min-height: 70px;
+}
+
+.h2, h2 {
+  font-weight: var(--fontWeightBold);
+  color: #000;
+}
+
+.box-veiculo-resultado h2 a {
+  color: #1f1f1f;
+}
+
+.box-veiculo-resultado h2 .year {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.box-veiculo-resultado h2 .first-name {
+  font-size: 15px;
+  font-weight: var(--fontWeightSemiBold);
+}
+
+.box-veiculo-resultado .preco {
+  font-size: 20px;
+  font-weight: var(--fontWeightSemiBold);
+  color: var(--textColorPrimaryDarker);
+  margin-top: 5px;
+}
+
+.vitrine-cidade {
+  color: #666;
+  font-size: 12px;
+}
+
+.box-veiculo-resultado .opicionais {
+  padding: 10px 0 0;
+  margin: 10px 0;
+  color: #666;
+  font-weight: var(--fontWeightNormal);
+  font-size: 11px;
+  position: absolute;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  bottom: 0;
+  border-top: 1px solid var(--boxBorderColor);
+}
+
+.box-opicionais-home {
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  width: 32%;
+  text-transform: uppercase;
+  font-size: 10px;
+  background-color: #eee;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.box-veiculo-resultado {
+  background-color: var(--colorWhite); 
+  transition-duration: .2s;
+  margin-bottom: 5px;
+  border-radius: 5px; 
+  overflow: hidden;
+  border: 1px solid var(--boxBorderColor);
+}
+
+.no-margin {
+  margin: 0!important;
+}
+
+.no-padding {
+  padding: 0!important;
+}
+
+.card-car-margin {
+  margin-bottom: 35px;
+  box-shadow: 0 0 20px rgba(0,0,0,.1);
+}
+
+.inline-form-check{
+  display: inline;
+  padding-left: 1.25rem;
+  position: relative;
+  font-weight: bold;
+  margin-right: 4vh;
+}
