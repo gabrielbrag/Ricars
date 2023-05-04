@@ -17,12 +17,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b465a69f50.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://kit.fontawesome.com/b465a69f50.css" crossorigin="anonymous">
-
-
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">  
-    <script src="{% static 'js/vehicles.js' %}"></script>         
+    <link rel="stylesheet" href="https://kit.fontawesome.com/b465a69f50.css" crossorigin="anonymous">      
 </head>
 
 <body>
@@ -66,18 +61,18 @@
                         <div class="filter-content">
                             <div class="card-body p-0">
                                 <label class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                                    <input class="form-check-input" type="radio" name="categoryRadio" value="C">
                                     <span class="form-check-label">
                                         AUTOMÓVEL
                                     </span>
                                 </label>
                                 <label class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                                    <input class="form-check-input" type="radio" name="categoryRadio" value="M">
                                     <span class="form-check-label">
                                         MOTO
                                     </span>
                                 </label>
-                            </div> <!-- card-body.// -->
+                            </div>
                         </div>
                     </div>
 
@@ -85,11 +80,13 @@
                         <p class="filtro-titulo page-header">Preço</p>
                         <ul class="filtro-preco-de-para filtro-grupo nav nav-sidebar filtro-titulo">
                             <li>
-                                <div class="input-group"><input class="mask-integer form-control text-right"
-                                        placeholder="de" type="text" id="preco-de" name="preco-de" value=""
-                                        maxlength="19" onfocusout="mountVehiclesPanel(window.location.origin + '/vehiclesPanel', {&quot;minPrice&quot;:$(this).val()});"><input class="mask-integer form-control text-right"
-                                        placeholder="até" type="text" id="preco-ate" name="preco-ate" value=""
-                                        maxlength="19" pwa2-uuid="EDITOR/input-5A4-63E-9DCF2-3C5" pwa-fake-editor="">
+                                <div class="input-group">
+                                    <input class="mask-integer form-control text-right" 
+                                        id="input_minPrice" placeholder="de" type="text" name="preco-de" value=""
+                                        maxlength="19">
+                                    <input class="mask-integer form-control text-right"
+                                        id="input_maxPrice" placeholder="até" type="text" id="preco-ate" name="preco-ate" value=""
+                                        maxlength="19">
                                 </div>
                             </li>
                         </ul>
@@ -99,11 +96,11 @@
                         <p class="filtro-titulo page-header">KM</p>
                         <ul class="filtro-preco-de-para filtro-grupo nav nav-sidebar filtro-titulo">
                             <li>
-                                <div class="input-group"><input class="mask-integer form-control text-right"
-                                        placeholder="de" type="text" id="preco-de" name="preco-de" value=""
-                                        maxlength="19"><input class="mask-integer form-control text-right"
-                                        placeholder="até" type="text" id="preco-ate" name="preco-ate" value=""
-                                        maxlength="19" pwa2-uuid="EDITOR/input-5A4-63E-9DCF2-3C5" pwa-fake-editor="">
+                                <div class="input-group">
+                                    <input class="mask-integer form-control text-right"
+                                        id="input_minMileage" placeholder="de" type="text" name="km-de" value="" maxlength="19">
+                                    <input class="mask-integer form-control text-right"
+                                        id="input_maxMileage" placeholder="até" type="text" id="km-ate" name="km-ate" value="" maxlength="19">
                                 </div>
                             </li>
                         </ul>
@@ -116,7 +113,7 @@
                                 <div class="card-body p-0">
                                     {% for year in possible_vehicle_years %}
                                         <label class="inline-form-check">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadio" value="">
+                                            <input class="form-check-input" type="checkbox" name="checkboxYear" value="{{ year }}">
                                             {{ year }}
                                         </label>                                    
                                     {% endfor %}
@@ -149,4 +146,7 @@
         </div>
 
     </footer>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">  
+    <script src="{% static 'js/vehicles.js' %}"></script> 
 </body>
