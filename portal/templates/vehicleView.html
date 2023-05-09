@@ -1,0 +1,105 @@
+{% extends 'stock.html' %}
+{% block content %}
+  <div class="container my-5">
+    <div class="row" style="margin-top:13vh;">
+      <div class="col-lg-8">
+        <div class="container mt-3 mb-3">
+          <div id="carCarousel" class="carousel slide h-50" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#carCarousel" data-slide-to="1"></li>
+              <li data-target="#carCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              {% for image in vehicle_images %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img
+                    src="{{ image.fileURL }}"
+                    alt="{{ vehicle.vehicle_variant }}" class="img-fluid rounded car-image-panel" />
+                </div>
+              {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="page-header">Detalhes do Veículo</h3>
+          <div class="interno" style="line-height: 1.5; font-family: Arial, sans-serif; color: #333;">
+            <p>{{ vehicle.salesman_observation|linebreaks }}</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-4">
+        <div class="hidden-xs hidden-sm">
+          <h1 class="titulo-veiculo no-margin">
+            <div class="first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
+            <div class="last-name">{{ vehicle.vehicle_variant.variant_name }} / {{ vehicle.model_year }}</div>
+          </h1>
+          <div class="box-preco-detalhe">
+            <h2 class="text-left preco-detalhe text-nowrap">R$ <span id="valor_veic">99.900,00</span></h2>
+          </div>
+          <div class="mb-3 pddng-0">
+            <ul class="collection list-unstyled">
+              <li class="collection-header">
+                Ano Fab.<br>
+                <span class="text-bold ligth">{{ vehicle.manufacture_year }}</span>
+              </li>
+              <li class="collection-header">
+                Câmbio<br>
+                <span class="text-bold ligth">{{ vehicle.transmission_formatted }}</span>
+              </li>
+              <li class="collection-header">
+                Km<br>
+                <span class="text-bold ligth">{{ vehicle.mileage_formatted }}</span>
+              </li>
+              <li class="collection-header">
+                Combustível<br>
+                <span class="text-bold ligth">{{ vehicle.fuel_type_formatted }}</span>
+              </li>
+              <li class="collection-header">
+                Cor<br>
+                <span class="text-bold ligth">{{ vehicle.color }}</span>
+              </li>
+              <li class="collection-header">
+                Placa<br>
+                <span class="text-bold ligth">{{ vehicle.maskedLicensePlate }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <a class="btn-success btn btn-lg btn-block mb-3 text-uppercase"
+            href="https://wa.me/5541998560092?text=Olá, vi o anúncio no site e gostaria de saber mais sobre {{ vehicle.vehicle_variant }}. Aguardo contato, obrigado!"
+            title="Fale conosco pelo WhatsApp" target="_blank">
+            <i class="fab fa-whatsapp"></i> Fale com a loja
+          </a>
+        </div>
+
+        <a class="btn btn-secondary btn-block btn-lg text-uppercase mb-3" id="(41)99856-0092" href="tel:(41)99856-0092">
+          <i class="fas fa-phone"></i> (41)99856-0092
+        </a>
+        <div class="card card-body card-default margin-top-30">
+          <address>
+
+            <a href="https://www.google.com/maps/place/R.+Francisco+Derosso,+2615+-+Xaxim,+Curitiba+-+PR,+81710-000/@-25.5113047,-49.2609191,17z/data=!4m6!3m5!1s0x94dcfb13db72c8ed:0x35d48e39a81825fb!8m2!3d-25.5114693!4d-49.2593742!16s%2Fg%2F11csbqnf89"
+              target="_blank" class="btn btn-default pull-right"> <i class="fas fa-map-marker-alt"></i> Ver mapa
+            </a>
+            <h4 class="page-header padding-top-10">Localização</h4>
+            <p class="mb-20">RUA FRANCISCO DEROSSO,2615 XAXIM - Curitiba</p>
+        </div>
+        </address>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}

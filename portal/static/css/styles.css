@@ -316,3 +316,8 @@ body {
   font-weight: bold;
   margin-right: 4vh;
 }
+
+.car-image-panel{
+  height: 60vh;
+  width: 100%;
+}

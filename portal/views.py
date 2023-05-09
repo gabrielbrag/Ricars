@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from erp.models import Vehicle
+from erp.models import Vehicle, Vehicle_image
 
 def home(request):        
     vehicles = Vehicle.objects.all()
     
-    possible_vehicle_years  = Vehicle.objects.values_list('year', flat=True).distinct().order_by('year')
+    possible_vehicle_years  = Vehicle.objects.values_list('manufacture_year', flat=True).distinct().order_by('manufacture_year')
     
     return render(request, 'stock.html', {"vehicles":vehicles, "possible_vehicle_years":possible_vehicle_years})
 
@@ -31,3 +31,8 @@ def vehiclesPanel(request):
     vehicles = Vehicle.objects.filter(**filter_args)
     
     return render(request, 'vehiclesPanel.html', {"vehicles":vehicles})
+
+def vehicleView(request):
+    vehicle = Vehicle.objects.get(id=request.GET.get('id'))
+    vehicle_images = Vehicle_image.objects.filter(vehicle=vehicle).order_by("index")
+    return render(request, 'vehicleView.html', {'vehicle':vehicle, 'vehicle_images':vehicle_images})

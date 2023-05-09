@@ -2,6 +2,11 @@ import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
+date_validator = [
+    MinValueValidator(1900),
+    MaxValueValidator(9999)
+]
+
 class Brand(models.Model):
     brand_name = models.CharField(max_length=30)
     
@@ -46,7 +51,7 @@ class Vehicle(models.Model):
         ('F', 'Flex'),
         ('D', 'Diesel'),
     ]    
-    
+        
     vehicle_variant = models.ForeignKey(Vehicle_model_variant, on_delete=models.CASCADE, related_name="variant", null=True, default=None)
     transmission    = models.CharField(max_length=1, choices=TRANSMISSION_CHOICES)
     fuel_type       = models.CharField(max_length=1, choices=FUEL_TYPE_CHOICES)
@@ -56,20 +61,23 @@ class Vehicle(models.Model):
     mileage         = models.IntegerField(default=0)
     number_of_doors = models.IntegerField(default=2, null=True)
     license_plate   = models.CharField(max_length=7, null=True)   
-    year            = models.IntegerField(
+    model_year      = models.IntegerField(
         default=datetime.date.today().year,
-        validators=[
-            MinValueValidator(1900),
-            MaxValueValidator(9999)
-        ]
+        validators=date_validator
     )
-        
+    manufacture_year = models.IntegerField(
+        default=datetime.date.today().year,
+        validators=date_validator
+    )      
+    
+    salesman_observation = models.TextField(default='')
+    
     @property
     def in_stock(self):
         return self.sale_value is None
 
     def __str__(self) -> str:
-        return '%s - %s' % (str(self.vehicle_variant), self.year)
+        return '%s - %s' % (str(self.vehicle_variant), self.manufacture_year)
 
     @property
     def sale_value_formatted(self):
@@ -103,11 +111,23 @@ class Vehicle(models.Model):
         if front_image:
             return front_image.file.url
         return ''
+    
+    @property
+    def maskedLicensePlate(self):
+        first_char      = self.license_plate[0]
+        last_char       = self.license_plate[-1]
+        hidden_chars    = '*' * (len(self.license_plate) - 2)
+        
+        return first_char + hidden_chars + last_char        
 
 class Vehicle_image(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="vehicle")
     file    = models.ImageField(upload_to='images/')
     index   = models.IntegerField(null=True)
+    
+    @property
+    def fileURL(self):
+        return self.file.url
 
 class Vehicle_cost_type(models.Model):
     cost_name = models.CharField(max_length=30)
