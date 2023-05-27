@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from erp.models import Vehicle, Vehicle_image
+from companies.models import Company, Shop
 
 def home(request):        
     vehicles = Vehicle.objects.all()
     
+    company = Company.objects.first()
+    shop    = Company.objects.first()
+    
     possible_vehicle_years  = Vehicle.objects.values_list('manufacture_year', flat=True).distinct().order_by('manufacture_year')
     
-    return render(request, 'stock.html', {"vehicles":vehicles, "possible_vehicle_years":possible_vehicle_years})
+    return render(request, 'stock.html', {"vehicles":vehicles, 
+                                            "possible_vehicle_years":possible_vehicle_years,
+                                            "company":company,
+                                            "shop":shop})
 
 def vehiclesPanel(request):
     url_to_model = {
@@ -36,3 +43,6 @@ def vehicleView(request):
     vehicle = Vehicle.objects.get(id=request.GET.get('id'))
     vehicle_images = Vehicle_image.objects.filter(vehicle=vehicle).order_by("index")
     return render(request, 'vehicleView.html', {'vehicle':vehicle, 'vehicle_images':vehicle_images})
+
+def aboutView(request):
+    return render(request, 'about.html')

@@ -46,15 +46,16 @@ class Vehicle(models.Model):
         ('M', 'Manual'),
     ]
     FUEL_TYPE_CHOICES = [
-        ('G', 'Gasoline'),
-        ('E', 'Ethanol'),
-        ('F', 'Flex'),
-        ('D', 'Diesel'),
+        ('GAS', 'Gasoline'),
+        ('ETH', 'Ethanol'),
+        ('FLE', 'Flex'),
+        ('DIE', 'Diesel'),
+        ('ELE', 'Eletric')
     ]    
         
     vehicle_variant = models.ForeignKey(Vehicle_model_variant, on_delete=models.CASCADE, related_name="variant", null=True, default=None)
     transmission    = models.CharField(max_length=1, choices=TRANSMISSION_CHOICES)
-    fuel_type       = models.CharField(max_length=1, choices=FUEL_TYPE_CHOICES)
+    fuel_type       = models.CharField(max_length=3, choices=FUEL_TYPE_CHOICES)
     color           = models.ForeignKey(Color, on_delete=models.CASCADE)
     purchase_price  = models.FloatField(default=0)
     sale_value      = models.FloatField(null=True, blank=True)
@@ -88,7 +89,7 @@ class Vehicle(models.Model):
     @property   
     def mileage_formatted(self):
         if self.mileage is not None:
-            return f'{self.mileage} KM'
+            return f'{self.mileage}     '
         return None    
     
     @property
