@@ -3,14 +3,14 @@
     {% for vehicle in vehicles %}
         <div class="carro col-md-3 col-result-pact" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
             <div class="card card-car-margin">
-                <div class="row box-veiculo-resultado no-padding no-margin">
+                <div class="row box-vehicle-result no-padding no-margin">
                     <div class="carro-img col-md-12 no-padding fit-col-img">
                             <img src="{{ vehicle.frontImageURL }}"
                                 class="img-responsive lazy" width="484px"
                                 height="363px" style="">
                         </a>
                     </div>
-                    <div class="carro-info col-md-12">
+                    <div class="car-info col-md-12">
                         <div class="row">
                             <div class="col-md-12 pact-result">
                                 <h2 class="tit-marca mh-22-pl-7">
@@ -23,12 +23,12 @@
                                     </a>
                                 </h2>
                                 <div class="price2-col word-price w-h-tc">
-                                    <h3 class="preco indigo-text text-darken-4">R$
+                                    <h3 class="price indigo-text text-darken-4">R$
                                         <span id="valor_veic">{{ vehicle.sale_value_formatted }}</span>
                                     </h3>
 
                                 </div>
-                                <div class="vitrine-cidade">
+                                <div class="card-city">
                                     <svg class="grey-fill" xmlns="https://www.w3.org/2000/svg" width="13"
                                         height="13" viewBox="0 0 24 24">
                                         <path
@@ -36,8 +36,8 @@
                                         </path>
                                     </svg> Curitiba (PR)
                                 </div>
-                                <div class="opicionais">
-                                    <div class="box-opicionais-home">
+                                <div class="optionals">
+                                    <div class="box-optionals-home">
                                         <div>
                                             <svg class="red-fill" width="18" height="18" version="1.1"
                                                 id="Camada_1" xmlns="https://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="box-opicionais-home">
+                                    <div class="box-optionals-home">
                                         <div>
                                             <svg class="red-fill" xmlns="https://www.w3.org/2000/svg"
                                                 width="14" height="18" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@
                                             <span class="text-none grey-text10">{{ vehicle.mileage_formatted }}</span>
                                         </div>
                                     </div>
-                                    <div class="box-opicionais-home">
+                                    <div class="box-optionals-home">
                                         <div>
                                             <svg class="red-fill" xmlns="https://www.w3.org/2000/svg"
                                                 width="14" height="18" viewBox="0 0 24 24">

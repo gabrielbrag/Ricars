@@ -105,17 +105,17 @@ body {
     float: right !important;
   }
 
-  .titulo-veiculo .first-name {
+  .vehicle-title .first-name {
     font-size: 24px;
     font-weight: var(--fontWeightBold);
   }
 
-  .titulo-veiculo .last-name {
+  .vehicle-title .last-name {
     font-size: var(--fontSizeMedium);
     font-weight: var(--fontWeightNormal);
   }
 
-  .preco-detalhe {
+  .price-detail {
     font-size: var(--fontSizeLarge);
     font-weight: var(--fontWeightSemiBold) !important;
     margin: 8px 0 15px;
@@ -125,11 +125,6 @@ body {
 
   .text-bold {
     font-weight: bold;
-  }
-
-  linha {
-    list-style-type: disc;
-    /* círculos preenchidos */
   }
 
   .veiculo-opcionais ul li::before {
@@ -147,29 +142,7 @@ body {
     padding-left: 15px;
   }
 
-  .box-filtro {
-    padding: 15px;
-    border-bottom: 1px solid var(--boxBorderColor);
-}
-
-.box-filtro .filtro-titulo {
-    padding: 0;
-    margin: 10px 0 5px 0!important;
-}
-
-.filtro-titulo {
-    font-size: 18px!important;
-    font-weight: var(--fontWeightSemiBold)!important;
-    text-transform: capitalize!important;
-    border: none;
-}
-
-.box-filtro .filtro-titulo {
-    padding: 0;
-    margin: 10px 0 5px 0!important;
-}
-
-.filtro-titulo {
+.filter-title {
     font-size: 18px!important;
     font-weight: var(--fontWeightSemiBold)!important;
     text-transform: capitalize!important;
@@ -187,24 +160,13 @@ body {
     z-index: 9;
 }
 
-.box-filtro {
-    display: flex;
-    gap: .5em;
-    align-items: center;
-    color: var(--textColorSecondary);
-    font-weight: 400!important;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: var(--fontSizeSmall);
-}
-
 .carro-img {
   max-height: 13vw;
   min-height: 13vw;
   overflow: hidden;
 }
 
-.box-veiculo-resultado {
+.box-vehicle-result {
   background-color: var(--colorWhite);
   transition-duration: .2s;
   margin-bottom: 5px;
@@ -213,13 +175,13 @@ body {
   border: 1px solid var(--boxBorderColor);
 }
 
-.box-veiculo-resultado .carro-info .pact-result {
+.box-vehicle-result .car-info .pact-result {
   min-height: 250px;
   position: relative;
   overflow: hidden;
 }
 
-.box-veiculo-resultado h2 {
+.box-vehicle-result h2 {
   font-size: var(--fontSizeMedium);
   text-transform: uppercase;
   min-height: 70px;
@@ -230,34 +192,34 @@ body {
   color: #000;
 }
 
-.box-veiculo-resultado h2 a {
+.box-vehicle-result h2 a {
   color: #1f1f1f;
 }
 
-.box-veiculo-resultado h2 .year {
+.box-vehicle-result h2 .year {
   font-size: 12px;
   margin-bottom: 5px;
   color: #666;
 }
 
-.box-veiculo-resultado h2 .first-name {
+.box-vehicle-result h2 .first-name {
   font-size: 15px;
   font-weight: var(--fontWeightSemiBold);
 }
 
-.box-veiculo-resultado .preco {
+.box-vehicle-result .price {
   font-size: 20px;
   font-weight: var(--fontWeightSemiBold);
   color: var(--textColorPrimaryDarker);
   margin-top: 5px;
 }
 
-.vitrine-cidade {
+.card-city {
   color: #666;
   font-size: 12px;
 }
 
-.box-veiculo-resultado .opicionais {
+.box-vehicle-result .optionals {
   padding: 10px 0 0;
   margin: 10px 0;
   color: #666;
@@ -271,7 +233,7 @@ body {
   border-top: 1px solid var(--boxBorderColor);
 }
 
-.box-opicionais-home {
+.box-optionals-home {
   text-align: center;
   padding: 5px;
   border-radius: 5px;
@@ -287,7 +249,7 @@ body {
   height: auto;
 }
 
-.box-veiculo-resultado {
+.box-vehicle-result {
   background-color: var(--colorWhite); 
   transition-duration: .2s;
   margin-bottom: 5px;
@@ -333,4 +295,8 @@ body {
   border:var(--textColorPrimary);
   font-weight: bold;
   color:var(--colorPrimary);
+}
+
+.image-logo{
+  height: 5vh;
 }
