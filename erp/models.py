@@ -2,7 +2,7 @@ import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext as _
-
+import locale
 
 date_validator = [
     MinValueValidator(1900),
@@ -17,9 +17,9 @@ class Brand(models.Model):
     
 class Vehicle_model(models.Model):
     MODEL_TYPE_CHOICES = [
-        ('M', 'Motorcycle'),
-        ('C', 'Car'),
-        ('T', 'Truck'),
+        ('M', _('Motorcycle')),
+        ('C', _('Car')),
+        ('T', _('Truck')),
     ]   
     
     brand       = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand')
@@ -60,7 +60,7 @@ class Vehicle(models.Model):
     fuel_type       = models.CharField(max_length=3, choices=FUEL_TYPE_CHOICES)
     color           = models.ForeignKey(Color, on_delete=models.CASCADE)
     purchase_price  = models.FloatField(default=0)
-    sale_value      = models.FloatField(null=True, blank=True)
+    sale_value      = models.FloatField(null=True, blank=True, default=0)
     mileage         = models.IntegerField(default=0)
     number_of_doors = models.IntegerField(default=2, null=True)
     license_plate   = models.CharField(max_length=7, null=True)   
@@ -83,15 +83,15 @@ class Vehicle(models.Model):
         return '%s - %s' % (str(self.vehicle_variant), self.manufacture_year)
 
     @property
-    def purchase_value_formatted(self):
-        if self.purchase_value is not None:
-            return f'{self.purchase_value:.2f}'
+    def purchase_price_formatted(self):
+        if self.purchase_price is not None:
+            return locale.format_string('%.2f', self.purchase_price)
         return None
 
     @property
     def sale_value_formatted(self):
         if self.sale_value is not None:
-            return f'{self.sale_value:.2f}'
+            return locale.format_string('%.2f', self.sale_value)
         return None
     
     @property   

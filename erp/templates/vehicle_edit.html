@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  
+  <div class="form-group">
+    <label for="id_brand">Brand</label>
+    <select name="brand" id="id_brand" class="form-control">
+      <option value="">---------</option>
+      {% for brand in brands %}
+      <option value="{{ brand.pk }}">{{ brand.brand_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_model">Model</label>
+    <select name="vehicle_model" id="id_model" class="form-control" disabled>
+      <option value="">---------</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_variant">Variant</label>
+    <select name="vehicle_variant" id="id_variant" class="form-control" disabled>
+      <option value="">---------</option>
+    </select>
+  </div>
+
+  {% for field in form %}
+    {% if field.name != 'vehicle_variant' %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.errors %}
+      <div class="errors">
+        {% for error in field.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<script>
+  $(document).ready(function () {
+    // Get the model and variant URLs
+    var modelUrl = "{% url 'vehicle_model_json' %}";
+    var variantUrl = "{% url 'vehicle_model_variant_json' %}";
+
+    // Enable/disable the model and variant select fields
+    $("#id_brand").change(function () {
+      var brandId = $(this).val();
+      if (brandId) {
+        $("#id_model").prop("disabled", false);
+        $("#id_variant").prop("disabled", true);
+        $("#id_variant").val("");
+
+        // Load models for the selected brand
+        $.getJSON(modelUrl, { brand: brandId }, function (data) {
+          let vehicle_models = JSON.parse(data);
+          var options = "<option value=''>---------</option>";
+          $.each(vehicle_models, function (index, model) {
+            console.log(model);
+            options += "<option value='" + model.pk + "'>" + model.fields.model_name + "</option>";
+          });
+          $("#id_model").html(options);
+        });
+      } else {
+        $("#id_model").prop("disabled", true);
+        $("#id_variant").prop("disabled", true);
+        $("#id_model").val("");
+        $("#id_variant").val("");
+      }
+    });
+
+    // Load variants for the selected model
+    $("#id_model").change(function () {
+      var modelId = $(this).val();
+      console.log("ModelID " + modelId);
+      if (modelId) {
+        $("#id_variant").prop("disabled", false);
+
+        // Load variants for the selected model
+        $.getJSON(variantUrl, { vehicle_model: modelId }, function (data) {
+          var options = "<option value=''>---------</option>";
+          let variants = JSON.parse(data);
+          $.each(variants, function (index, variant) {
+            options += "<option value='" + variant.pk + "'>" + variant.fields.variant_name + "</option>";
+          });
+          $("#id_variant").html(options);
+        });
+      } else {
+        $("#id_variant").prop("disabled", true);
+        $("#id_variant").val("");
+      }
+    });
+  });
+</script>
+{% endblock %}

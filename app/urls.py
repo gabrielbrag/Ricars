@@ -22,7 +22,6 @@ STATIC_URL = '/static/'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ricars/', include('ricars.urls')),
     path('erp/', include("erp.urls")),
     path('', include("portal.urls"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
