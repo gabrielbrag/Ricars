@@ -1,6 +1,8 @@
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.translation import gettext as _
+
 
 date_validator = [
     MinValueValidator(1900),
@@ -42,15 +44,15 @@ class Color(models.Model):
     
 class Vehicle(models.Model):
     TRANSMISSION_CHOICES = [
-        ('A', 'Automatic'),
-        ('M', 'Manual'),
+        ('A', _('Automatic')),
+        ('M', _('Manual')),
     ]
     FUEL_TYPE_CHOICES = [
-        ('GAS', 'Gasoline'),
-        ('ETH', 'Ethanol'),
-        ('FLE', 'Flex'),
-        ('DIE', 'Diesel'),
-        ('ELE', 'Eletric')
+        ('GAS', _('Gasoline')),
+        ('ETH', _('Ethanol')),
+        ('FLE', _('Flex')),
+        ('DIE', _('Diesel')),
+        ('ELE', _('Eletric'))
     ]    
         
     vehicle_variant = models.ForeignKey(Vehicle_model_variant, on_delete=models.CASCADE, related_name="variant", null=True, default=None)
@@ -79,6 +81,12 @@ class Vehicle(models.Model):
 
     def __str__(self) -> str:
         return '%s - %s' % (str(self.vehicle_variant), self.manufacture_year)
+
+    @property
+    def purchase_value_formatted(self):
+        if self.purchase_value is not None:
+            return f'{self.purchase_value:.2f}'
+        return None
 
     @property
     def sale_value_formatted(self):
