@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-08 17:55+0000\n"
+"POT-Creation-Date: 2023-06-24 18:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,141 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: erp/models.py:13 erp/models.py:25 erp/templates/vehicle_edit.html:9
+msgid "Brand"
+msgstr "Marca"
+
 #: erp/models.py:20
 msgid "Motorcycle"
-msgstr ""
+msgstr "Moto"
 
 #: erp/models.py:21
 msgid "Car"
-msgstr ""
+msgstr "Carro"
 
 #: erp/models.py:22
 msgid "Truck"
-msgstr ""
+msgstr "Caminhão"
 
-#: erp/models.py:47
+#: erp/models.py:26 erp/templates/vehicle_edit.html:15
+msgid "Model"
+msgstr "Modelo"
+
+#: erp/models.py:27
+msgid "Type"
+msgstr "Tipo"
+
+#: erp/models.py:54
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
-#: erp/models.py:48
+#: erp/models.py:55
 msgid "Manual"
-msgstr ""
+msgstr "Manual"
 
-#: erp/models.py:51
+#: erp/models.py:58
 msgid "Gasoline"
 msgstr "Gasolina"
 
-#: erp/models.py:52
+#: erp/models.py:59
 msgid "Ethanol"
 msgstr "Etanol"
 
-#: erp/models.py:53
+#: erp/models.py:60
 msgid "Flex"
 msgstr ""
 
-#: erp/models.py:54
+#: erp/models.py:61
 msgid "Diesel"
 msgstr ""
 
-#: erp/models.py:55
+#: erp/models.py:62
 msgid "Eletric"
 msgstr "Elétrico"
+
+#: erp/models.py:66
+msgid "transmission"
+msgstr ""
+
+#: erp/models.py:67
+msgid "fuel type"
+msgstr ""
+
+#: erp/models.py:68
+msgid "color"
+msgstr "Cor"
+
+#: erp/models.py:69
+msgid "purchase price"
+msgstr "Preço de compra"
+
+#: erp/models.py:70
+msgid "sale value"
+msgstr "Preço de venda"
+
+#: erp/models.py:71
+msgid "mileage"
+msgstr "Quilometragem"
+
+#: erp/models.py:72
+msgid "number of doors"
+msgstr "Número de portas"
+
+#: erp/models.py:73
+msgid "license plate"
+msgstr "Placa"
+
+#: erp/models.py:75
+msgid "model year"
+msgstr "Ano modelo"
+
+#: erp/models.py:80
+msgid "manufacture year"
+msgstr "Ano fabricação"
 
 #: erp/templates/datatable.html:29
 msgid "Insert"
 msgstr "Inserir"
 
-#: erp/views.py:30
+#: erp/templates/masterpage.html:56
+msgid "Brands"
+msgstr "Marcas"
+
+#: erp/templates/masterpage.html:57
+msgid "Colors"
+msgstr "Cores"
+
+#: erp/templates/masterpage.html:58
+msgid "Models"
+msgstr "Modelos"
+
+#: erp/templates/masterpage.html:59
+msgid "Stock"
+msgstr "Estoque"
+
+#: erp/templates/vehicle_edit.html:22
+msgid "Variant"
+msgstr "Variante"
+
+#: erp/tests/tests_views.py:41 erp/views/views_vehicle.py:13
 msgid "Vehicle"
 msgstr "Veículo"
 
-#: erp/views.py:30
+#: erp/tests/tests_views.py:41 erp/views/views_vehicle.py:13
 msgid "Year"
 msgstr "Ano"
 
-#: erp/views.py:30
+#: erp/tests/tests_views.py:41 erp/views/views_vehicle.py:13
 msgid "Color"
 msgstr "Cor"
 
-#: erp/views.py:30
+#: erp/tests/tests_views.py:41 erp/views/views_vehicle.py:13
 msgid "Purchase price"
 msgstr "Preço de compra"
 
-#: erp/views.py:30
+#: erp/tests/tests_views.py:41 erp/views/views_vehicle.py:13
 msgid "Sale price"
 msgstr "Preço de venda"
+
+#~ msgid "Variants"
+#~ msgstr "Variantes"

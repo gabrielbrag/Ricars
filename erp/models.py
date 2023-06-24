@@ -10,7 +10,7 @@ date_validator = [
 ]
 
 class Brand(models.Model):
-    brand_name = models.CharField(max_length=30)
+    brand_name = models.CharField(verbose_name=_('Brand'), max_length=30)
     
     def __str__(self) -> str:
         return self.brand_name
@@ -22,12 +22,19 @@ class Vehicle_model(models.Model):
         ('T', _('Truck')),
     ]   
     
-    brand       = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand')
-    model_name  = models.CharField(max_length=30)
-    model_type  = models.CharField(max_length=1, choices=MODEL_TYPE_CHOICES)
+    brand       = models.ForeignKey(Brand, verbose_name=_('Brand'), on_delete=models.CASCADE, related_name='brand')
+    model_name  = models.CharField(verbose_name=_('Model'), max_length=30)
+    model_type  = models.CharField(verbose_name=_('Type'), max_length=1, choices=MODEL_TYPE_CHOICES)
     
     def __str__(self) -> str:
         return self.brand.brand_name + ' ' + self.model_name
+
+    @property
+    def model_type_formatted(self):
+        for choice in self.MODEL_TYPE_CHOICES:
+            if choice[0] == self.model_type:
+                return choice[1]
+        return ''  
 
 class Vehicle_model_variant(models.Model):
     vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name='model')
@@ -37,10 +44,10 @@ class Vehicle_model_variant(models.Model):
         return str(self.vehicle_model) + ' ' + self.variant_name
 
 class Color(models.Model):
-    name = models.CharField(max_length=30)
+    color_name = models.CharField(max_length=30)
     
     def __str__(self) -> str:
-        return self.name
+        return self.color_name
     
 class Vehicle(models.Model):
     TRANSMISSION_CHOICES = [
@@ -56,19 +63,21 @@ class Vehicle(models.Model):
     ]    
         
     vehicle_variant = models.ForeignKey(Vehicle_model_variant, on_delete=models.CASCADE, related_name="variant", null=True, default=None)
-    transmission    = models.CharField(max_length=1, choices=TRANSMISSION_CHOICES)
-    fuel_type       = models.CharField(max_length=3, choices=FUEL_TYPE_CHOICES)
-    color           = models.ForeignKey(Color, on_delete=models.CASCADE)
-    purchase_price  = models.FloatField(default=0)
-    sale_value      = models.FloatField(null=True, blank=True, default=0)
-    mileage         = models.IntegerField(default=0)
-    number_of_doors = models.IntegerField(default=2, null=True)
-    license_plate   = models.CharField(max_length=7, null=True)   
+    transmission    = models.CharField(verbose_name=_('transmission'), max_length=1, choices=TRANSMISSION_CHOICES)
+    fuel_type       = models.CharField(verbose_name=_('fuel type'), max_length=3, choices=FUEL_TYPE_CHOICES)
+    color           = models.ForeignKey(Color, verbose_name=_('color'), on_delete=models.CASCADE)
+    purchase_price  = models.FloatField(verbose_name=_('purchase price'), default=0)
+    sale_value      = models.FloatField(verbose_name=_('sale value'), null=True, blank=True, default=0)
+    mileage         = models.IntegerField(verbose_name=_('mileage'), default=0)
+    number_of_doors = models.IntegerField(verbose_name=_('number of doors'), default=2, null=True)
+    license_plate   = models.CharField(verbose_name=_('license plate'), max_length=7, null=True)   
     model_year      = models.IntegerField(
+        verbose_name=_('model year'),
         default=datetime.date.today().year,
         validators=date_validator
     )
     manufacture_year = models.IntegerField(
+        verbose_name=_('manufacture year'),
         default=datetime.date.today().year,
         validators=date_validator
     )      

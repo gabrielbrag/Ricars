@@ -22,7 +22,7 @@ def vehiclesPanel(request):
         'minMileage': 'mileage__gte',
         'maxMileage': 'mileage__lte',
         'modelType': 'vehicle_variant__vehicle_model__model_type',
-        'years': 'year__in'
+        'years': 'manufacture_year__in'
     }
     
     filter_args = {}
@@ -31,7 +31,7 @@ def vehiclesPanel(request):
         if value is not None:
             if url_param == 'years':
                 year_list = value.split(',')
-                filter_args['year__in'] = year_list
+                filter_args['manufacture_year__in'] = year_list
             else:
                 filter_args[model_field] = value
         
