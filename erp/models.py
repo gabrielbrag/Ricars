@@ -37,7 +37,7 @@ class Vehicle_model(models.Model):
         return ''  
 
 class Vehicle_model_variant(models.Model):
-    vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name='model')
+    vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name='variants')
     variant_name    = models.CharField(max_length=30)
     
     def __str__(self) -> str:

@@ -21,12 +21,23 @@ class DataTableMixin:
     def mountEditIcon(self, viewURL):
         return mark_safe('<a href="' + viewURL + '"><i class="fas fa-lg fa-edit"></i></a>')
 
+    def mountDeleteIcon(self, deleteURL):
+        return mark_safe('<span class="clickableAwesomeFont"><i class="fas fa-lg fa-trash" onClick="callDelete(\'' + deleteURL + '''\')"></i>
+                        <style>
+                            .clickableAwesomeFont {
+                                cursor: pointer;
+                                color:#007bff;
+                            }
+                        </style>'''
+        )
+
 class DataTableListView(DataTableMixin, TemplateView):
     template_name = 'default_list.html'
     model = None
     columns = []
     insert_view_route_name = None
     edit_view_route_name = None
+    delete_view_route_name = None
 
     def get_data_table(self):
         rows = []
@@ -42,13 +53,21 @@ class DataTableListView(DataTableMixin, TemplateView):
             for column in self.columns:
                 item_values.append(getattr(item, column))
                 
-            item_values.append(self.mountEditIcon(reverse(self.edit_view_route_name, kwargs={'pk': item.pk})))
+            if self.edit_view_route_name != None:
+                item_values.append(self.mountEditIcon(reverse(self.edit_view_route_name, kwargs={'pk': item.pk})))
+            
+            if self.delete_view_route_name != None:
+                item_values.append(self.mountDeleteIcon(reverse(self.delete_view_route_name, kwargs={'pk': item.pk})))
+            
             rows_value = {"values": item_values}
             rows.append(rows_value)
 
         data_table = {
             'columns': columns_with_verbose_name,
             'rows': rows,
-            'insertViewURL': reverse_lazy(self.insert_view_route_name)
+            'insertViewURL': reverse(self.insert_view_route_name) if self.insert_view_route_name else None,
+            'editViewURL': self.edit_view_route_name,
+            'deleteViewURL': self.delete_view_route_name
         }
         return data_table
+        

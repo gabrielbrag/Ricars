@@ -1,5 +1,5 @@
 from .views_base import DataTableListView
-from django.views.generic import TemplateView, UpdateView, CreateView
+from django.views.generic import TemplateView, UpdateView, CreateView, DeleteView
 from erp.models import Color
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
@@ -9,6 +9,7 @@ class ColorListView(DataTableListView):
     columns = ['color_name']
     insert_view_route_name = 'color_create'
     edit_view_route_name = 'color_edit'
+    delete_view_route_name = 'color_delete'
 
 class ColorBaseView():
     model = Color
@@ -21,3 +22,7 @@ class ColorCreateView(ColorBaseView, CreateView):
 
 class ColorUpdateView(ColorBaseView, UpdateView):
     pass
+
+class ColorDeleteView(ColorBaseView, DeleteView):
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)

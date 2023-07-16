@@ -1,5 +1,5 @@
 from .views_base import DataTableListView
-from django.views.generic import ListView, UpdateView, CreateView
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
 from erp.models import Brand
@@ -11,6 +11,8 @@ class BrandListView(DataTableListView):
     columns = ['brand_name']
     insert_view_route_name = 'brand_create'
     edit_view_route_name = 'brand_edit'
+    delete_view_route_name = 'brand_delete'
+    
 
 class BrandBaseView():
     model = Brand
@@ -23,6 +25,10 @@ class BrandCreateView(BrandBaseView, CreateView):
 
 class BrandUpdateView(BrandBaseView, UpdateView):
     pass
+
+class BrandDeleteView(BrandBaseView, DeleteView):
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 def brandJSON(request):
     brands = Brand.objects.all()

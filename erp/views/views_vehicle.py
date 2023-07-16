@@ -1,5 +1,5 @@
 from .views_base import DataTableMixin
-from django.views.generic import ListView, TemplateView, UpdateView, CreateView
+from django.views.generic import ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
 from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_model_variant
@@ -20,13 +20,16 @@ class VehicleListView(DataTableMixin, TemplateView):
             vehicleValues.append(vehicle.purchase_price_formatted)
             vehicleValues.append(vehicle.sale_value_formatted)
             vehicleValues.append(self.mountEditIcon(reverse('vehicle_edit', kwargs={'pk': vehicle.pk})))
+            vehicleValues.append(self.mountDeleteIcon(reverse('vehicle_delete', kwargs={'pk': vehicle.pk})))
             rowsValue = {"values":vehicleValues}
             rows.append(rowsValue)
 
         data_table = {
             'columns': dataTableColumns,
             'rows': rows,
-            'insertViewURL':reverse_lazy('vehicle_create')
+            'insertViewURL':reverse_lazy('vehicle_create'),
+            'editViewURL':'vehicle_edit',
+            'deleteViewURL':'vehicle_delete'
         }
         return data_table
 
@@ -49,3 +52,7 @@ class VehicleUpdateView(VehicleBaseView, UpdateView):
         vehicle_brand = vehicle.vehicle_variant.vehicle_model.brand  # Access the brand through the relationships
         context['vehicle_brand'] = vehicle_brand  # Pass the brand to the template context
         return context
+
+class VehicleDeleteView(VehicleBaseView, DeleteView):
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)

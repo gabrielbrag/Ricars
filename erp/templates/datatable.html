@@ -18,7 +18,7 @@
 
     <script src="https://kit.fontawesome.com/b465a69f50.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://kit.fontawesome.com/b465a69f50.css" crossorigin="anonymous">
-
+    <script type="application/javascript" src="https://server/cookies.js"></script>
 </head>
 
 <body>
@@ -35,9 +35,14 @@
                     <thead>
                         <tr>
                             {% for column in dataTable.columns %}
-                            <th>{{column}}</th>
+                                <th>{{column}}</th>
                             {% endfor %}
-                            <th></th>
+                            {% if dataTable.editViewURL != None %}
+                                <th></th>
+                            {% endif %}
+                            {% if dataTable.deleteViewURL != None %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +69,50 @@
                 }
             });
         });
+
+        function callDelete(URL) {
+            console.log(URL);
+        
+            // Get the CSRF token from the cookie
+            var csrftoken = getCookie('csrftoken');
+        
+            // Send the POST request with the CSRF token
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                success: function(response) {
+                    // Handle the response from the server if needed
+                    console.log(response);
+                    // Perform any desired actions after successful deletion
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Handle the error if needed
+                    console.error(xhr.responseText);
+                }
+            });
+        
+            // Function to retrieve the CSRF token from the cookie
+            function getCookie(name) {
+                var cookieValue = null;
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Check if the cookie name matches the CSRF token cookie name
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        // Extract the CSRF token value
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+                return cookieValue;
+            }
+        }
+        
+           
     </script>
 </body>
 
