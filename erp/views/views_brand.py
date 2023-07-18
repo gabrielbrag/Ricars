@@ -17,7 +17,7 @@ class BrandListView(DataTableListView):
 class BrandBaseView():
     model = Brand
     fields = ['brand_name']
-    template_name = 'forms/brand_edit.html'
+    template_name = 'erp/forms/brand_edit.html'
     success_url = reverse_lazy('brand_list')
 
 class BrandCreateView(BrandBaseView, CreateView):

@@ -17,7 +17,7 @@ class VehicleModelListView(DataTableListView):
 class VehicleModelBaseView():
     model = Vehicle_model
     fields = ['brand', 'model_name', 'model_type']
-    template_name = 'forms/vehicle_model_edit.html'
+    template_name = 'erp/forms/vehicle_model_edit.html'
     success_url = reverse_lazy('vehicle_model_list')
 
 class VehicleModelCreateView(VehicleModelBaseView, CreateView):

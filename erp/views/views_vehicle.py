@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
 
 class VehicleListView(DataTableMixin, TemplateView):
-    template_name = 'default_list.html'
+    template_name = 'erp/default_list.html'
 
     def get_data_table(self):
         dataTableColumns = [_("Vehicle"), _("Year"), _("Color"), _("Purchase price"), _("Sale price")]
@@ -36,7 +36,7 @@ class VehicleListView(DataTableMixin, TemplateView):
 class VehicleBaseView:
     model = Vehicle
     fields = ['vehicle_variant', 'model_year', 'color', 'purchase_price', 'sale_value']
-    template_name = 'vehicle_edit.html'
+    template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
 
 class VehicleCreateView(VehicleBaseView, CreateView):

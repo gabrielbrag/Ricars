@@ -10,7 +10,7 @@ def home(request):
     
     possible_vehicle_years  = Vehicle.objects.values_list('manufacture_year', flat=True).distinct().order_by('manufacture_year')
     
-    return render(request, 'stock.html', {"vehicles":vehicles, 
+    return render(request, 'portal/stock.html', {"vehicles":vehicles, 
                                             "possible_vehicle_years":possible_vehicle_years,
                                             "company":company,
                                             "shop":shop})
@@ -37,12 +37,12 @@ def vehiclesPanel(request):
         
     vehicles = Vehicle.objects.filter(**filter_args)
     
-    return render(request, 'vehiclesPanel.html', {"vehicles":vehicles})
+    return render(request, 'portal/vehiclesPanel.html', {"vehicles":vehicles})
 
 def vehicleView(request):
     vehicle = Vehicle.objects.get(id=request.GET.get('id'))
     vehicle_images = Vehicle_image.objects.filter(vehicle=vehicle).order_by("index")
-    return render(request, 'vehicleView.html', {'vehicle':vehicle, 'vehicle_images':vehicle_images})
+    return render(request, 'portal/vehicleView.html', {'vehicle':vehicle, 'vehicle_images':vehicle_images})
 
 def aboutView(request):
-    return render(request, 'about.html')
+    return render(request, 'portal/about.html')

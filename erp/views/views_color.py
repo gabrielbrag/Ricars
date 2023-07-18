@@ -14,7 +14,7 @@ class ColorListView(DataTableListView):
 class ColorBaseView():
     model = Color
     fields = ['color_name']
-    template_name = 'forms/color_edit.html'
+    template_name = 'erp/forms/color_edit.html'
     success_url = reverse_lazy('color_list')
 
 class ColorCreateView(ColorBaseView, CreateView):

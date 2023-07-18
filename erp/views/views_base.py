@@ -32,7 +32,7 @@ class DataTableMixin:
         )
 
 class DataTableListView(DataTableMixin, TemplateView):
-    template_name = 'default_list.html'
+    template_name = 'erp/default_list.html'
     model = None
     columns = []
     insert_view_route_name = None
