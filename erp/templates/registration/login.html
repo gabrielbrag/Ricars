@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{% include 'imports.html' %}
+</head>
+  <body>
+    <div class="bg-powder-blue" style="height:100%;">
+      <section>
+          <div class="container">
+            <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+              <h1 class="rosea title-bar mt-5 mb-3"><i class="fas fa-car"></i>RICARS</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3 mt-3">
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-group rosea">
+                  {{ form.username.label_tag }}
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    maxlength="150"
+                    id="id_username"
+                    required
+                  />
+                </div>
+                <div class="form-group rosea">
+                  {{ form.password.label_tag }}
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id="id_password"
+                    required
+                  />
+                </div>
+                {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+                <p style="font-size: 13px;">
+                  {{ error|escape }}
+                </p>
+                {% endfor %} {% endif %}
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

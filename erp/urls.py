@@ -3,8 +3,12 @@ from .views.views_brand             import BrandListView, BrandCreateView, Brand
 from .views.views_color             import ColorListView, ColorCreateView, ColorUpdateView, ColorDeleteView
 from .views.views_vehicle_model     import VehicleModelListView, VehicleModelCreateView, VehicleModelUpdateView, VehicleModelDeleteView, VehicleModelJSON, VehicleModelVariantJSON
 from .views.views_vehicle           import VehicleListView, VehicleCreateView, VehicleUpdateView, VehicleDeleteView
+from django.contrib.auth            import views as auth_views
 
 urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
     path('brands/', BrandListView.as_view(), name='brand_list'),
     path('brands/<int:pk>/edit/', BrandUpdateView.as_view(), name='brand_edit'),
     path('brands/insert/', BrandCreateView.as_view(), name='brand_create'),    

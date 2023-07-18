@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fontawesomefree',
     'erp',
     'portal',
-    'companies'
+    'companies',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -52,7 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'django.middleware.locale.LocaleMiddleware',
+    'accounts.middleware.AuthRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -144,3 +147,9 @@ STATICFILES_DIRS = [
 ]
 
 TEST_DISCOVER_PATTERN = "tests.py"
+
+LOGIN_REDIRECT_URL = '/erp/vehicles'
+LOGIN_URL = '/erp/login/'
+LOGOUT_REDIRECT_URL = 'login'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

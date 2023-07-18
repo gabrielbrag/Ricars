@@ -1,0 +1,99 @@
+:root{
+    --rosea: #FFD523;
+    --powder-blue: #2C2E43;
+    --cotton: red;
+    --smoke: pink;
+}
+
+.btn-cyan{
+    margin-left: 4px;
+    color: var(--light);
+    border-color: var(--cyan);
+    background-color: var(--cyan);
+    font-size: 0.6rem;
+}
+
+.btn-cyan-lg{
+    margin-left: 4px;
+    color: var(--light);
+    border-color: var(--cyan);
+    background-color: var(--cyan);
+
+}
+
+.card-title{
+    margin-top: 5vh;
+    width: 30rem;
+    height: 15rem;
+    align-content: center;
+
+}
+
+.main-content{
+    margin-top: 3vh;   
+}
+
+.controlGrid{
+    padding-left:30vh;
+}
+
+.btnGrid{
+    padding-left:25%;
+}
+
+.sidebar{
+    width: 200px;
+    background-color: var(--powder-blue);
+    padding-left: 3vh;
+    padding-top: 3vh;
+    height: auto;
+    min-height: 600px;
+}
+
+.sidebar a{
+    color: var(--rosea);
+    font-size: 16px;
+}
+
+.fa-user{
+    margin-right: 3px;
+}
+
+.rosea{
+    color: var(--rosea) !important;
+    
+}
+
+.bg-powder-blue{
+    background-color: var(--powder-blue);
+}
+
+.user-info{
+    font-size: 16px;
+
+}
+
+.brand-title{
+    font-size: 32px;
+    font-family: cursive;
+}
+
+.title-bar{
+    margin-left: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+
+.auth-controls{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.login-container{
+    margin-top: 10vh;
+}
+
+.login-card{
+    height: 45vh;
+
+}

@@ -70,4 +70,3 @@ class DataTableListView(DataTableMixin, TemplateView):
             'deleteViewURL': self.delete_view_route_name
         }
         return data_table
-        
