@@ -1,7 +1,12 @@
 {% extends 'erp/masterpage.html' %}
 
+{% block stylesheets %}
+  {% load static %}
+  <script src="{% static 'erp/js/vehicle_edit.js' %}"></script> 
+{% endblock %}
+
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% load i18n %}
   {% csrf_token %}
 
@@ -41,88 +46,40 @@
     {% endif %}
   {% endfor %}
 
+  <input type="file" name="images_input" multiple>
+  <div class="card mt-3 mb-3">
+    <div id="thumbnail-container" class="thumbnail-container card-body">
+      {% for image in vehicle.images.all %}
+        <div class="thumbnail">
+          <img src="{{ image.file.url }}" alt="Thumbnail" data-id="{{ image.pk }}">
+          <span class="delete-button" data-id="{{ image.pk }}">
+              <i class="fas fa-trash"></i>
+          </span>
+        </div>
+      {% endfor %}
+  </div>
+</div>
+
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
 <script>
-    // Get the model and variant URLs
+  const fileInput = document.querySelector('input[name="images_input"]');
+  fileInput.addEventListener('change', handleFileSelect);
+
+  $(document).ready(function () {
     var brandURL    = "{% url 'brand_json' %}";
     var modelUrl    = "{% url 'vehicle_model_json' %}";
     var variantUrl  = "{% url 'vehicle_model_variant_json' %}";
+    var listURL     = "{% url 'vehicle_list' %}"
 
-  function loadModel(brandId, defaultModel){
-    if (brandId) {
-        $("#id_model").prop("disabled", false);
-        $("#id_variant").prop("disabled", true);
-        $("#id_variant").val("");
+    setUpEndpoints(brandURL, modelUrl, variantUrl, listURL);
 
-        // Load models for the selected brand
-        $.getJSON(modelUrl, { brand: brandId }, function (data) {
-          let vehicle_models = JSON.parse(data);
-          let options = "<option value=''>---------</option>";
-          $.each(vehicle_models, function (index, model) {
-            options += "<option value='" + model.pk + "'>" + model.fields.model_name + "</option>";
-          });
-          $("#id_model").html(options);
+    loadBrand({{ vehicle_brand.pk|default:"null" }}, {{ vehicle.vehicle_variant.vehicle_model.pk|default:"null" }}, {{ vehicle.vehicle_variant.pk|default:"null" }})
 
-          if (defaultModel){
-            $("#id_model").val(defaultModel);
-            {% if vehicle.vehicle_variant != None %}
-              loadVariant(defaultModel, {{vehicle.vehicle_variant.pk}});
-            {% endif %}
-          }
-        });
-      } else {
-        $("#id_model").prop("disabled", true);
-        $("#id_variant").prop("disabled", true);
-        $("#id_model").val("");
-        $("#id_variant").val("");
-      }
-  };
-
-  function loadVariant(modelId, defaultVariant){
-    if (modelId) {
-      $("#id_variant").prop("disabled", false);
-  
-      // Load variants for the selected model
-      $.getJSON(variantUrl, { vehicle_model: modelId }, function (data) {
-        let options = "<option value=''>---------</option>";
-        let variants = JSON.parse(data);
-        $.each(variants, function (index, variant) {
-          options += "<option value='" + variant.pk + "'>" + variant.fields.variant_name + "</option>";
-        });
-        $("#id_variant").html(options);
-
-        if (defaultVariant){
-          $("#id_variant").val(defaultVariant);
-        }
-      });
-    } else {
-      $("#id_variant").prop("disabled", true);
-      $("#id_variant").val("");
-    }
-  };
-
-  $(document).ready(function () {
-    $.getJSON(brandURL, '', function (data) {
-          let options = "<option value=''>---------</option>";
-          let brands = JSON.parse(data);
-          $.each(brands, function (index, brand) {
-            options += "<option value='" + brand.pk + "'>" + brand.fields.brand_name + "</option>";
-          });
-          $("#id_brand").html(options);
-
-          {% if vehicle_brand != None %}
-            $("#id_brand").val("{{ vehicle_brand.pk }}");
-            loadModel({{ vehicle_brand.pk }}, {{ vehicle.vehicle_variant.vehicle_model.pk }});
-          {% endif %}
-
-        });
-
-    // Enable/disable the model and variant select fields
     $("#id_brand").change(function () {
       var brandId = $(this).val();
-      loadModel(brandId, null);
+      loadModel(brandId, null, null);
     });
 
     // Load variants for the selected model
@@ -130,6 +87,43 @@
       var modelId = $(this).val();
       loadVariant(modelId, null);
     })
+
+    insertedFiles = [];
+    existingFilesIDs = [];
+
+    var allImages = $('img');
+
+    // Loop through the selected <img> elements
+    allImages.each(function(index) {
+      // Do something with each <img> element, for example, access its attributes
+      let data_id = $(this).attr('data-id');
+
+      if (data_id){
+        existingFilesIDs.push(data_id)
+      };
+    });
+
+    thumbnailDivs = $('.thumbnail');
+
+    thumbnailDivs.each(function() {
+          var thumbnail = this; // 'this' refers to the current thumbnail div
+
+          // Find the delete button inside the current thumbnail div
+          var deleteButton = $(thumbnail).find('.delete-button');
+
+          // Add a click event listener to the delete button
+          deleteButton.on('click', function() {
+            let emptyName = "";
+            handleDeleteImage($(this).data("id"), thumbnail, emptyName); 
+          });
+      });
+ 
+      const form = document.querySelector("form");
+ 
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        submitWithFiles(form);
+      });
   });
 </script>
 {% endblock %}

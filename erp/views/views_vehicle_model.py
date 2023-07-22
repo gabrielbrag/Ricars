@@ -13,6 +13,15 @@ class VehicleModelListView(DataTableListView):
     insert_view_route_name = 'vehicle_model_create'
     edit_view_route_name = 'vehicle_model_edit'
     delete_view_route_name = 'vehicle_model_delete'
+    loaded_instances = None
+
+    def get(self, request, *args, **kwargs):
+        brand_id = request.GET.get('brand')
+   
+        if (brand_id != None):
+            self.loaded_instances = Vehicle_model.objects.filter(brand=brand_id)
+
+        return super().get(self, request, *args, **kwargs)
 
 class VehicleModelBaseView():
     model = Vehicle_model
@@ -32,8 +41,6 @@ class VehicleModelCreateView(VehicleModelBaseView, CreateView):
         for variant_name in variant_data:
             variant = Vehicle_model_variant(vehicle_model=vehicle_model, variant_name=variant_name)
             variant.save()
-
-        return response
 
         return response
 
@@ -78,17 +85,6 @@ def HandleVariants(self):
         variant = Vehicle_model_variant(vehicle_model=vehicle_model, variant_name=variant_name)
         variant.save()
 
-def VehicleModelJSON(request):
-    brand_id = request.GET.get('brand')
-   
-    if (brand_id != None):
-        vehicle_models = Vehicle_model.objects.filter(brand=brand_id)
-    else:
-        vehicle_models = Vehicle_model.objects.all()
-
-    serialized_data = serialize('json', vehicle_models)
-    return JsonResponse(serialized_data, safe=False)
-
 def VehicleModelVariantJSON(request):
     model_id = request.GET.get('vehicle_model')
    
@@ -97,5 +93,8 @@ def VehicleModelVariantJSON(request):
     else:
         vehicle_variants = Vehicle_model_variant.objects.all()
 
-    serialized_data = serialize('json', vehicle_variants)
+    listView = DataTableListView()
+    listView.loaded_instances = vehicle_variants
+    serialized_data = listView.serialize_instances()
+
     return JsonResponse(serialized_data, safe=False)

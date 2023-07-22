@@ -97,3 +97,29 @@
     height: 45vh;
 
 }
+
+.thumbnail-container {
+    padding-top:3vh;
+}
+
+.thumbnail {
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+}
+
+.thumbnail img {
+    width: 150;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.thumbnail .delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: var(--cotton);
+    cursor: pointer;
+}

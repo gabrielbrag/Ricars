@@ -4,6 +4,7 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% include 'erp/imports.html' %}
+    {% block stylesheets %}{% endblock %}
 </head>
 <body>
     {% load i18n %}
@@ -40,6 +41,7 @@
                 <a href="{% url 'brand_list' %}"><i class="fas fa-flag"></i> {% trans 'Brands' %}</a><hr>
                 <a href="{% url 'color_list' %}"><i class="fas fa-tint"></i> {% trans 'Colors' %}</a><hr>
                 <a href="{% url 'vehicle_model_list' %}"><i class="fas fa-car"></i> {% trans 'Models' %}</a><hr>
+                <a href="{% url 'vehicle_cost_type_list' %}"><i class="fas fa-dollar-sign"></i> {% trans 'Vehicular cost' %}</a><hr>
                 <a href="{% url 'vehicle_list' %}"><i class="fas fa-check-circle"></i> {% trans 'Stock' %}</a><hr>
             </div>
         </div>
@@ -49,4 +51,3 @@
         </div>
 </div>
 </body>
-</html>

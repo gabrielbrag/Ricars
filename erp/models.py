@@ -14,6 +14,11 @@ class Brand(models.Model):
     
     def __str__(self) -> str:
         return self.brand_name
+
+    @property
+    def contextual_title(self):
+        # Customize the name based on your desired logic
+        return self.brand_name
     
 class Vehicle_model(models.Model):
     MODEL_TYPE_CHOICES = [
@@ -35,6 +40,10 @@ class Vehicle_model(models.Model):
             if choice[0] == self.model_type:
                 return choice[1]
         return ''  
+    
+    @property
+    def contextual_title(self):
+        return self.model_name
 
 class Vehicle_model_variant(models.Model):
     vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name='variants')
@@ -42,6 +51,10 @@ class Vehicle_model_variant(models.Model):
     
     def __str__(self) -> str:
         return str(self.vehicle_model) + ' ' + self.variant_name
+
+    @property
+    def contextual_title(self):
+        return self.variant_name
 
 class Color(models.Model):
     color_name = models.CharField(max_length=30)
@@ -81,7 +94,7 @@ class Vehicle(models.Model):
         default=datetime.date.today().year,
         validators=date_validator
     )      
-    
+    sold = models.BooleanField(_('sold'), default=False)
     salesman_observation = models.TextField(default='')
     
     @property
@@ -124,6 +137,10 @@ class Vehicle(models.Model):
         return ''    
     
     @property
+    def sold_as_checkbox(self):
+        return '<input type="checkbox" readonly disabled ' + ('checked' if self.sold else '') + '>'
+
+    @property
     def frontImageURL(self):
         front_image = Vehicle_image.objects.filter(vehicle=self, index=1).first()
         if front_image:
@@ -139,7 +156,7 @@ class Vehicle(models.Model):
         return first_char + hidden_chars + last_char        
 
 class Vehicle_image(models.Model):
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="vehicle")
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="images")
     file    = models.ImageField(upload_to='images/')
     index   = models.IntegerField(null=True)
     
@@ -148,9 +165,10 @@ class Vehicle_image(models.Model):
         return self.file.url
 
 class Vehicle_cost_type(models.Model):
-    cost_name = models.CharField(max_length=30)
+    cost_type_name = models.CharField(max_length=30, verbose_name=_("Name"))
 
 class Vehicle_cost(models.Model):
+    vehicle         = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     cost_type       = models.ForeignKey(Vehicle_cost_type, on_delete=models.CASCADE)
     cost_name       = models.CharField(max_length=30)
     expense_date    = models.DateField() 

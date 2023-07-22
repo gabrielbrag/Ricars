@@ -6,6 +6,9 @@ from erp.models import Vehicle, Brand, Color, Vehicle_model, Vehicle_model_varia
 from django.utils.translation import gettext as _
 from django.utils.safestring import mark_safe
 from django.urls import reverse, reverse_lazy
+from django.forms.models import model_to_dict
+from django.db import models
+import json
 
 class DataTableMixin:
     def get_data_table(self):
@@ -38,6 +41,8 @@ class DataTableListView(DataTableMixin, TemplateView):
     insert_view_route_name = None
     edit_view_route_name = None
     delete_view_route_name = None
+    json = False
+    loaded_instances = None
 
     def get_data_table(self):
         rows = []
@@ -70,3 +75,27 @@ class DataTableListView(DataTableMixin, TemplateView):
             'deleteViewURL': self.delete_view_route_name
         }
         return data_table
+    
+    def get_json_list(self):
+        if self.loaded_instances == None:
+            self.loaded_instances = self.model.objects.all()
+
+        serialized_data = self.serialize_instances()
+
+        return JsonResponse(serialized_data, safe=False)
+
+    def serialize_instances(self):
+        serialized_data = []
+
+        for instance in self.loaded_instances:
+            data = model_to_dict(instance)
+            if hasattr(instance, 'contextual_title'):
+                data['contextual_title'] = instance.contextual_title
+            serialized_data.append(data)
+
+        return serialized_data
+
+    def get(self, request, *args, **kwargs):
+        if self.json:
+            return self.get_json_list()
+        return super().get(request, *args, **kwargs)

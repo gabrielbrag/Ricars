@@ -38,7 +38,7 @@
                         {% for row in dataTable.rows %}
                         <tr>
                             {% for value in row.values %}
-                            <td>{{value}}</td>
+                            <td>{{value|safe}}</td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
@@ -60,8 +60,6 @@
         });
 
         function callDelete(URL) {
-            console.log(URL);
-        
             // Get the CSRF token from the cookie
             var csrftoken = getCookie('csrftoken');
         
@@ -74,7 +72,6 @@
                 },
                 success: function(response) {
                     // Handle the response from the server if needed
-                    console.log(response);
                     // Perform any desired actions after successful deletion
                     location.reload();
                 },

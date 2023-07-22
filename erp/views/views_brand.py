@@ -12,7 +12,6 @@ class BrandListView(DataTableListView):
     insert_view_route_name = 'brand_create'
     edit_view_route_name = 'brand_edit'
     delete_view_route_name = 'brand_delete'
-    
 
 class BrandBaseView():
     model = Brand
@@ -31,6 +30,6 @@ class BrandDeleteView(BrandBaseView, DeleteView):
         return self.delete(request, *args, **kwargs)
 
 def brandJSON(request):
-    brands = Brand.objects.all()
-    serialized_data = serialize('json', brands)
-    return JsonResponse(serialized_data, safe=False)  
+    brands_data = get_model_json_response(Brand)
+    print(brands_data)
+    return JsonResponse(brands_data, safe=False)

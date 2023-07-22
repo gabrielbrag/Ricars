@@ -2,7 +2,7 @@ from .views_base import DataTableMixin
 from django.views.generic import ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
-from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_model_variant
+from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_model_variant, Vehicle_image
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
 
@@ -10,7 +10,7 @@ class VehicleListView(DataTableMixin, TemplateView):
     template_name = 'erp/default_list.html'
 
     def get_data_table(self):
-        dataTableColumns = [_("Vehicle"), _("Year"), _("Color"), _("Purchase price"), _("Sale price")]
+        dataTableColumns = [_("Vehicle"), _("Year"), _("Color"), _("Purchase price"), _("Sale price"), _("Sold")]
         rows = []
         for vehicle in Vehicle.objects.all():
             vehicleValues = []
@@ -19,6 +19,7 @@ class VehicleListView(DataTableMixin, TemplateView):
             vehicleValues.append(vehicle.color)
             vehicleValues.append(vehicle.purchase_price_formatted)
             vehicleValues.append(vehicle.sale_value_formatted)
+            vehicleValues.append(vehicle.sold_as_checkbox)
             vehicleValues.append(self.mountEditIcon(reverse('vehicle_edit', kwargs={'pk': vehicle.pk})))
             vehicleValues.append(self.mountDeleteIcon(reverse('vehicle_delete', kwargs={'pk': vehicle.pk})))
             rowsValue = {"values":vehicleValues}
@@ -35,7 +36,18 @@ class VehicleListView(DataTableMixin, TemplateView):
 
 class VehicleBaseView:
     model = Vehicle
-    fields = ['vehicle_variant', 'model_year', 'color', 'purchase_price', 'sale_value']
+    fields = ['vehicle_variant', 
+                'model_year', 
+                'manufacture_year',
+                'color', 
+                'transmission',
+                'mileage',
+                'number_of_doors',
+                'license_plate',
+                'purchase_price', 
+                'sale_value',
+                'salesman_observation',
+                'sold']
     template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
 
@@ -44,6 +56,18 @@ class VehicleCreateView(VehicleBaseView, CreateView):
         context = super().get_context_data(**kwargs)
         context['brands'] = Brand.objects.all()
         return context
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        vehicle = self.object
+
+        inserted_files = self.request.FILES.getlist('inserted_files')  # Get the list of uploaded files
+
+        for index, image_file in enumerate(inserted_files):
+            vehicle_image = Vehicle_image(vehicle=vehicle, file=image_file, index=(index + 1))
+            vehicle_image.save()
+        
+        return response    
 
 class VehicleUpdateView(VehicleBaseView, UpdateView):
     def get_context_data(self, **kwargs):
@@ -52,6 +76,35 @@ class VehicleUpdateView(VehicleBaseView, UpdateView):
         vehicle_brand = vehicle.vehicle_variant.vehicle_model.brand  # Access the brand through the relationships
         context['vehicle_brand'] = vehicle_brand  # Pass the brand to the template context
         return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        existing_files_ids_string = self.request.POST.get('existing_files_ids', '')
+
+        # Split the string by commas and remove any leading/trailing whitespace
+        existing_files_ids = [id.strip() for id in existing_files_ids_string.split(',') if id.strip()]
+
+        # Validate the IDs to ensure they are valid integers
+        try:
+            existing_files_ids = [int(id) for id in existing_files_ids]
+        except ValueError:
+            return HttpResponseBadRequest("Invalid input: existing_files_ids must be a comma-separated list of integers.")
+
+        vehicle = self.get_object()
+        vehicle_images = vehicle.images.all()
+        
+        for image in vehicle_images:
+            if not image.pk in existing_files_ids:
+                image.delete() 
+
+        inserted_files = self.request.FILES.getlist('inserted_files')  # Get the list of uploaded files
+
+        for index, image_file in enumerate(inserted_files):
+            vehicle_image = Vehicle_image(vehicle=vehicle, file=image_file, index=(index + 1))
+            vehicle_image.save()
+        
+        return response    
 
 class VehicleDeleteView(VehicleBaseView, DeleteView):
     def post(self, request, *args, **kwargs):
