@@ -123,3 +123,32 @@
     color: var(--cotton);
     cursor: pointer;
 }
+
+  /* Custom class for the form row */
+  .custom-form-row {
+    display: flex;
+    align-items: flex-start; /* Align elements at the top of the row */
+  }
+
+  /* Custom class for the form group */
+  .custom-form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Custom class for the select element */
+  .custom-form-select {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Custom class for the input element */
+  .custom-form-input {
+    width: 100%;
+  }
+
+  /* Custom class for the button */
+  .custom-form-button {
+    margin-top: auto; /* Align button to the bottom of the form group */
+  }

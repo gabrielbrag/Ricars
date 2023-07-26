@@ -167,8 +167,11 @@ class Vehicle_image(models.Model):
 class Vehicle_cost_type(models.Model):
     cost_type_name = models.CharField(max_length=30, verbose_name=_("Name"))
 
+    def __str__(self):
+        return self.cost_type_name
+    
 class Vehicle_cost(models.Model):
-    vehicle         = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    vehicle         = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="costs")
     cost_type       = models.ForeignKey(Vehicle_cost_type, on_delete=models.CASCADE)
     cost_name       = models.CharField(max_length=30)
     expense_date    = models.DateField() 

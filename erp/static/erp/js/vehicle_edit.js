@@ -11,12 +11,9 @@ function loadOptions(url, selectId, defaultValue) {
   fetch(url)
     .then(response => response.json())
     .then(options => {
-      console.log(options);
-      console.log(Array.isArray(options));
       let select = document.getElementById(selectId);
       let optionsHTML = "<option value=''>---------</option>";
       options.forEach(option => {
-        console.log(option);
         optionsHTML += "<option value='" + option.id + "'>" + option.contextual_title + "</option>";
       });
       select.innerHTML = optionsHTML;
@@ -26,7 +23,6 @@ function loadOptions(url, selectId, defaultValue) {
       }
     })
     .catch(error => {
-      console.log(response);
       console.error("Error fetching options:", error);
     });
 }
@@ -125,6 +121,8 @@ function handleDeleteImage(file_id, thumbnail, fileName) {
 }
 
 function submitWithFiles(form){
+  convertTableToJSON();
+
   const formData = new FormData(form);
   const xhr = new XMLHttpRequest();
  
