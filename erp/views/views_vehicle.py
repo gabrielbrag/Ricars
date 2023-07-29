@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_model_variant, Vehicle_image,  Vehicle_cost_type, Vehicle_cost
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
+from django.forms.widgets import CheckboxInput
 import json
 
 class VehicleListView(DataTableMixin, TemplateView):
@@ -47,15 +48,16 @@ class VehicleBaseView:
                 'license_plate',
                 'purchase_price', 
                 'sale_value',
-                'salesman_observation',
-                'sold']
+                'sold',
+                'salesman_observation']
+                
     template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
 
 class VehicleCreateView(VehicleBaseView, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['brands'] = Brand.objects.all()
+        context['brands'] = Brand.objects.all() 
         return context
     
     def form_valid(self, form):
@@ -70,7 +72,7 @@ class VehicleCreateView(VehicleBaseView, CreateView):
         
         return response    
 
-class VehicleUpdateView(VehicleBaseView, UpdateView):
+class VehicleUpdateView(VehicleBaseView, UpdateView):    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         vehicle = self.get_object()  # Get the current vehicle object
@@ -79,7 +81,30 @@ class VehicleUpdateView(VehicleBaseView, UpdateView):
 
         cost_types = Vehicle_cost_type.objects.all()
         context['cost_types'] = cost_types 
-        
+
+        fields_manually_created = ['vehicle_variant', 'salesman_observation']
+
+        form = self.get_form()
+
+        for field_name, field in form.fields.items():
+            if isinstance(field.widget, CheckboxInput):
+                field.widget.attrs['class'] = 'form-check'               
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
+        # for field in fields_manually_created:
+        #     form.fields.pop(field)
+
+        automatic_fields    = [field for field in form if field.name not in fields_manually_created]
+
+        manual_fields = []
+        for field in form:
+            if field not in automatic_fields:
+                manual_fields.append(field)
+
+        context['automatic_fields'] = automatic_fields
+        context['manual_fields'] = manual_fields
+
         return context
 
     def form_valid(self, form):

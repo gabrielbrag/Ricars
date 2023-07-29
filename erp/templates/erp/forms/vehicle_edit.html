@@ -32,22 +32,41 @@
     </select>
   </div>
 
-  {% for field in form %}
-    {% if field.name != 'vehicle_variant' %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {{ field }}
-      {% if field.errors %}
-      <div class="errors">
-        {% for error in field.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-    {% endif %}
-  {% endfor %}
+  <div class="row">    
+    {% for field in automatic_fields %}
+        {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+          <div class="row">
+        {% endif %}
+        <div class="col-md-3">
+          <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <div class="errors">
+                {% for error in field.errors %}
+                  <span class="error">{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+          </div>
+        {% endif %}
+    {% endfor %}
 
+    {% for field in manual_fields %}
+      {% if field.name == 'salesman_observation' %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              {{ field.label_tag }}
+              {{ field }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
   <input type="file" name="images_input" multiple>
   <div class="card mt-3 mb-3">
     <div id="thumbnail-container" class="thumbnail-container card-body">
@@ -64,34 +83,34 @@
 
 <div class="row custom-form-row mb-3">
   <div class="col-md-2 custom-form-group">
-    <label for="vehicle_cost_type">Cost type</label>
+    <label for="vehicle_cost_type">{% trans 'Cost type' %}</label>
     <select class="form-control custom-form-select" name="vehicle_cost_type" id="cost_type">
-      <option value="">Select...</option>
+      <option value="">{% trans 'Select...' %}</option>
       {% for cost in cost_types %}
         <option value="{{cost.pk}}">{{ cost }}</option>
       {% endfor %}
     </select>
   </div>
   <div class="col-md-4 custom-form-group">
-    <label for="cost_name">Cost name</label>
+    <label for="cost_name">{% trans 'Cost name' %}</label>
     <div class="input-group">
-      <input type="text" id="cost_name" class="form-control custom-form-input" placeholder="Enter cost name">
+      <input type="text" id="cost_name" class="form-control custom-form-input" placeholder="{% trans 'Enter cost name' %}">
     </div>
   </div>
   <div class="col-md-2 custom-form-group">
-    <label for="cost_name">Value</label>
+    <label for="cost_name">{% trans 'Value' %}</label>
     <div class="input-group">
       <input type="number" id="cost_value" class="form-control custom-form-input">
     </div>
   </div>
   <div class="col-md-2 custom-form-group">
-    <label for="cost_name">Date</label>
+    <label for="cost_name">{% trans 'Date' %}</label>
     <div class="input-group">
       <input type="date" id="expense_date" class="form-control custom-form-input">
     </div>
   </div>
   <div class="col-md-1 custom-form-group custom-form-button">
-    <button id="insertButton" class="btn btn-primary" type="button">Add</button>
+    <button id="insertButton" class="btn btn-primary" type="button">{% trans 'Add' %}</button>
   </div>
 </div>
 
@@ -101,12 +120,12 @@
     <table class="table table-bordered" id="costTable">
       <thead>
         <tr>
-          <th data-field="cost_name" style="width: 30%">Cost name</th>
+          <th data-field="cost_name" style="width: 30%">{% trans 'Cost name' %}</th>
           <th data-field="cost_type_id" style="display:none;"></th>
-          <th data-field="cost_type_name" style="width: 30%">Type</th>
-          <th data-field="cost_value" style="width: 20%">Value</th>
-          <th data-field="expense_date" style="width: 10%">Date</th>
-          <th data-field="delete" style="width: 10%">Remove</th>
+          <th data-field="cost_type_name" style="width: 30%">{% trans 'Type' %}</th>
+          <th data-field="cost_value" style="width: 20%">{% trans 'Value' %}</th>
+          <th data-field="expense_date" style="width: 10%">{% trans 'Date' %}</th>
+          <th data-field="delete" style="width: 10%">{% trans 'Remove' %}</th>
         </tr>
       </thead>
       <tbody>
@@ -128,7 +147,7 @@
 
   <input type="text" id="table-data-field" name="vehicle_cost_data" style="display:none;">
 
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
 </form>
 
 <script>
