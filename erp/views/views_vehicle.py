@@ -54,12 +54,44 @@ class VehicleBaseView:
     template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        form = self.get_form()
+
+        fields_manually_created = ['vehicle_variant', 'salesman_observation']
+
+        for field_name, field in form.fields.items():
+            if isinstance(field.widget, CheckboxInput):
+                field.widget.attrs['class'] = 'form-check'               
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
+        automatic_fields  = [field for field in form if field.name not in fields_manually_created]
+        context['automatic_fields'] = automatic_fields
+
+        manual_fields = []
+        for field in form:
+            if field not in automatic_fields:
+                manual_fields.append(field)
+
+
+        context['manual_fields'] = manual_fields
+
+        return context
+    
+
 class VehicleCreateView(VehicleBaseView, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['brands'] = Brand.objects.all() 
+
+        cost_types = Vehicle_cost_type.objects.all()
+        context['cost_types'] = cost_types 
+
         return context
-    
+
+
     def form_valid(self, form):
         response = super().form_valid(form)
         vehicle = self.object
@@ -69,7 +101,20 @@ class VehicleCreateView(VehicleBaseView, CreateView):
         for index, image_file in enumerate(inserted_files):
             vehicle_image = Vehicle_image(vehicle=vehicle, file=image_file, index=(index + 1))
             vehicle_image.save()
-        
+
+        vehicle_cost_data = json.loads(self.request.POST.get('vehicle_cost_data'))
+    
+        for cost in vehicle_cost_data:
+            vehicle_cost_type = Vehicle_cost_type.objects.get(pk=cost["cost_type_id"])
+
+            vehicle_cost = Vehicle_cost(vehicle=vehicle, 
+                                        cost_type=vehicle_cost_type, 
+                                        cost_name=cost["cost_name"], 
+                                        expense_date=cost["expense_date"],
+                                        value=cost["cost_value"])
+            
+            vehicle_cost.save()
+
         return response    
 
 class VehicleUpdateView(VehicleBaseView, UpdateView):    
@@ -81,29 +126,6 @@ class VehicleUpdateView(VehicleBaseView, UpdateView):
 
         cost_types = Vehicle_cost_type.objects.all()
         context['cost_types'] = cost_types 
-
-        fields_manually_created = ['vehicle_variant', 'salesman_observation']
-
-        form = self.get_form()
-
-        for field_name, field in form.fields.items():
-            if isinstance(field.widget, CheckboxInput):
-                field.widget.attrs['class'] = 'form-check'               
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-        # for field in fields_manually_created:
-        #     form.fields.pop(field)
-
-        automatic_fields    = [field for field in form if field.name not in fields_manually_created]
-
-        manual_fields = []
-        for field in form:
-            if field not in automatic_fields:
-                manual_fields.append(field)
-
-        context['automatic_fields'] = automatic_fields
-        context['manual_fields'] = manual_fields
 
         return context
 

@@ -57,7 +57,7 @@ class Vehicle_model_variant(models.Model):
         return self.variant_name
 
 class Color(models.Model):
-    color_name = models.CharField(max_length=30)
+    color_name = models.CharField(max_length=30, verbose_name=_('color name'))
     
     def __str__(self) -> str:
         return self.color_name
@@ -82,7 +82,7 @@ class Vehicle(models.Model):
     purchase_price  = models.FloatField(verbose_name=_('purchase price'), default=0)
     sale_value      = models.FloatField(verbose_name=_('sale value'), null=True, blank=True, default=0)
     mileage         = models.IntegerField(verbose_name=_('mileage'), default=0)
-    number_of_doors = models.IntegerField(verbose_name=_('number of doors'), default=2, null=True)
+    number_of_doors = models.IntegerField(verbose_name=_('number of doors'), default=4, null=True)
     license_plate   = models.CharField(verbose_name=_('license plate'), max_length=7, null=True)   
     model_year      = models.IntegerField(
         verbose_name=_('model year'),
@@ -95,7 +95,7 @@ class Vehicle(models.Model):
         validators=date_validator
     )      
     sold = models.BooleanField(_('sold'), default=False)
-    salesman_observation = models.TextField(default='')
+    salesman_observation = models.TextField(verbose_name=_('observations'), default='')
     
     @property
     def in_stock(self):

@@ -4,7 +4,7 @@ from companies.models import Company, Shop
 
 def home(request):        
     vehicles = Vehicle.objects.all()
-    
+
     company = Company.objects.first()
     shop    = Company.objects.first()
     

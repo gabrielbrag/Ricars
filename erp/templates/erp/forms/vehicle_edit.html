@@ -32,7 +32,7 @@
     </select>
   </div>
 
-  <div class="row">    
+  <div class="row">
     {% for field in automatic_fields %}
         {% if forloop.counter0|divisibleby:4 and not forloop.first %}
           <div class="row">
@@ -91,7 +91,7 @@
       {% endfor %}
     </select>
   </div>
-  <div class="col-md-4 custom-form-group">
+  <div class="col-md-3 custom-form-group">
     <label for="cost_name">{% trans 'Cost name' %}</label>
     <div class="input-group">
       <input type="text" id="cost_name" class="form-control custom-form-input" placeholder="{% trans 'Enter cost name' %}">
@@ -109,7 +109,7 @@
       <input type="date" id="expense_date" class="form-control custom-form-input">
     </div>
   </div>
-  <div class="col-md-1 custom-form-group custom-form-button">
+  <div class="col-md-2 custom-form-group custom-form-button">
     <button id="insertButton" class="btn btn-primary" type="button">{% trans 'Add' %}</button>
   </div>
 </div>

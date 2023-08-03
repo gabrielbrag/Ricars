@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-29 16:34+0000\n"
+"POT-Creation-Date: 2023-08-01 01:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,11 @@ msgstr "Modelo"
 #: erp/models.py:32 erp/templates/erp/forms/vehicle_edit.html:125
 msgid "Type"
 msgstr "Tipo"
+
+#: erp/models.py:60
+#| msgid "color"
+msgid "color name"
+msgstr "Cor"
 
 #: erp/models.py:67
 msgid "Automatic"
@@ -115,15 +120,29 @@ msgstr "ano fabricação"
 msgid "sold"
 msgstr "vendido"
 
+#: erp/models.py:98
+msgid "observations"
+msgstr "observações"
+
 #: erp/models.py:168
 msgid "Name"
 msgstr "nome"
 
 #: erp/templates/erp/datatable.html:18
+#: erp/templates/erp/forms/vehicle_model_edit.html:30
 msgid "Insert"
 msgstr "Inserir"
 
+#: erp/templates/erp/forms/brand_edit.html:22
+#: erp/templates/erp/forms/color_edit.html:22
+#: erp/templates/erp/forms/vehicle_cost_type_edit.html:22
+#: erp/templates/erp/forms/vehicle_edit.html:150
+#: erp/templates/erp/forms/vehicle_model_edit.html:51
+msgid "Save"
+msgstr "Salvar"
+
 #: erp/templates/erp/forms/vehicle_edit.html:29
+#: erp/templates/erp/forms/vehicle_model_edit.html:39
 msgid "Variant"
 msgstr "Variante"
 
@@ -159,12 +178,14 @@ msgid "Add"
 msgstr "Adicionar"
 
 #: erp/templates/erp/forms/vehicle_edit.html:128
+#: erp/templates/erp/forms/vehicle_model_edit.html:40
 msgid "Remove"
 msgstr "Remover"
 
-#: erp/templates/erp/forms/vehicle_edit.html:150
-msgid "Save"
-msgstr "Salvar"
+#: erp/templates/erp/forms/vehicle_model_edit.html:27
+#| msgid "Insert"
+msgid "Insert variant"
+msgstr "Inserir variante"
 
 #: erp/templates/erp/masterpage.html:41
 msgid "Brands"

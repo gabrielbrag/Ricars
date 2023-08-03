@@ -15,10 +15,10 @@
   --fontWeightSemiBold: 600;
   --fontWeightNormal: 500;
   --fontWeightLight: 100;
-  --fontSizeSmall: 13px;
-  --fontSizeMedium: 19px;
-  --fontSizeLarge: 28px;
-  --fontSizeExtraLarge: 36px;
+  --fontSizeSmall: 0.5vw;
+  --fontSizeMedium: 2vw;
+  --fontSizeLarge: 3vw;
+  --fontSizeExtraLarge: 5vw;
   --lineHeightBase: 1.5;
   --lineHeightLarge: 2;
 }
@@ -151,18 +151,19 @@ body {
 
 .sidebar {
     padding: 30px;
-    position: sticky;
+    /* position: sticky; */
     overflow-y: auto;
-    top: 88px;
-    height: 100vh;
+    /* top: 88px; */
+    /* height: 100vh; */
     background-color: var(--colorWhite);
     padding-bottom: 200px;
+    margin-bottom:3vh;
     z-index: 9;
 }
 
 .carro-img {
-  max-height: 13vw;
-  min-height: 13vw;
+  /* max-height: 13vw; */
+  /* min-height: 13vw; */
   overflow: hidden;
 }
 

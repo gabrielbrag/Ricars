@@ -1,10 +1,10 @@
 
 <div class="row">
     {% for vehicle in vehicles %}
-        <div class="carro col-md-3 col-result-pact" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
+        <div class="carro col-lg-3 col-md-12 col-result-pact" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
             <div class="card card-car-margin">
                 <div class="row box-vehicle-result no-padding no-margin">
-                    <div class="carro-img col-md-12 no-padding fit-col-img">
+                    <div class="carro-img col-md-12 no-padding fit-col-img d-flex justify-content-center">
                             <img src="{{ vehicle.frontImageURL }}"
                                 class="img-responsive lazy" width="484px"
                                 height="363px" style="">
@@ -18,8 +18,8 @@
                                         href="{% url 'vehicleView' %}?id={{ vehicle.id }}"
                                         title="Ver mais detalhes sobre o veículo RENAULT KWID INTENSE _4P_">
                                         <div class="year">{{ vehicle.manufacture_year }}</div>
-                                        <div class="first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
-                                        <div class="second-name">{{ vehicle.vehicle_variant.variant_name }}</div>
+                                        <div class="h4 first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
+                                        <div class="h3 second-name">{{ vehicle.vehicle_variant.variant_name }}</div>
                                     </a>
                                 </h2>
                                 <div class="price2-col word-price w-h-tc">
@@ -95,5 +95,5 @@
                 </div>
             </div>
         </div>
-    {% endfor %}                
+    {% endfor %}            
 </div>
