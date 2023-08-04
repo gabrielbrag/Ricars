@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-color fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand textBaseColor" href="{% url 'home' %}"><img class="image-logo" src="{% static "images/logo.png" %}"></img></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,10 +39,12 @@
                     <li class="nav-item">
                         <a class="nav-link textBaseColor" href="{% url 'aboutView' %}">Sobre nós</a>
                     </li>
-                    <button type="button" class="btn btn-motors" onclick="window.open('https://api.whatsapp.com/send?phone=5541997427561', '_blank')">
-                        <i class="fab fa-whatsapp me-2 font-weight-bold"></i>
-                        Entrar em Contato
-                    </button>
+                    {% if context_company.whatsapp_number %}
+                        <button type="button" class="btn btn-motors" onclick="window.open('https://api.whatsapp.com/send?phone=55{{context_company.whatsapp_number}}', '_blank')">
+                            <i class="fab fa-whatsapp me-2 font-weight-bold"></i>
+                            Entrar em Contato
+                        </button>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -52,7 +54,7 @@
 
     {% endblock %}
     
-    <footer class="text-light py-3 bg-color fixed-bottom">
+    <footer class="text-light py-3 bg-color navbar-bottom-fixed">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -60,9 +62,15 @@
                     </p>
                 </div>
                 <div class="col-md-6 text-md-right">
-                    <a href="#"><i class="fab fa-facebook mr-3 textBaseColor"></i></a>
-                    <a href="#"><i class="fab fa-instagram mr-3 textBaseColor"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp mr-2 textBaseColor"></i>(11) 1234-5678</a>
+                    {% if context_company.facebook_link %}
+                        <a href="{{context_company.facebook_link}}"><i class="fab fa-facebook mr-3 textBaseColor"></i></a>
+                    {% endif %}
+                    {% if context_company.instagram_link %}
+                        <a href="{{context_company.instagram_link}}"><i class="fab fa-instagram mr-3 textBaseColor"></i></a>
+                    {% endif %}
+                    {% if context_company.whatsapp_number %}
+                        <a href="https://api.whatsapp.com/send?phone=55{{context_company.whatsapp_number}}"><i class="fab fa-whatsapp mr-2 textBaseColor"></i></a>
+                    {% endif %}
                 </div>
             </div>
         </div>

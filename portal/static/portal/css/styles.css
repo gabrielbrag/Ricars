@@ -16,9 +16,9 @@
   --fontWeightNormal: 500;
   --fontWeightLight: 100;
   --fontSizeSmall: 0.5vw;
-  --fontSizeMedium: 2vw;
-  --fontSizeLarge: 3vw;
-  --fontSizeExtraLarge: 5vw;
+  --fontSizeMedium: 1vw;
+  --fontSizeLarge: 2vw;
+  --fontSizeExtraLarge: 3vw;
   --lineHeightBase: 1.5;
   --lineHeightLarge: 2;
 }
@@ -89,9 +89,10 @@ body {
     font-weight: var(--fontWeightLight);
     padding: 5px;
     border: 1px solid var(--boxBorderColor);
-    font-size: var(--fontSizeSmall);
+    font-size: var(--fontSizeMedium);
     text-align: center;
     border-radius: 5px;
+    color:var(--textColorPrimary);
   }
 
   .collection {
@@ -108,11 +109,13 @@ body {
   .vehicle-title .first-name {
     font-size: 24px;
     font-weight: var(--fontWeightBold);
+    color: var(--textColorPrimary);
   }
 
   .vehicle-title .last-name {
     font-size: var(--fontSizeMedium);
     font-weight: var(--fontWeightNormal);
+    color: var(--textColorPrimary);
   }
 
   .price-detail {
@@ -121,6 +124,7 @@ body {
     margin: 8px 0 15px;
     padding-bottom: 20px;
     color: #434141;
+    color: var(--textColorPrimary);
   }
 
   .text-bold {
@@ -128,7 +132,6 @@ body {
   }
 
   .veiculo-opcionais ul li::before {
-    content: "\2022";
     color: var(--textColorSecondary);
     font-weight: var(--fontWeightBold);
     display: inline-block;
@@ -140,6 +143,7 @@ body {
   .veiculo-opcionais ul {
     /* list-style: none; */
     padding-left: 15px;
+    color: var(--textColorPrimary)
   }
 
 .filter-title {
@@ -198,7 +202,7 @@ body {
 }
 
 .box-vehicle-result h2 .year {
-  font-size: 12px;
+  font-size: var(--fontSizeMedium);
   margin-bottom: 5px;
   color: #666;
 }
@@ -296,8 +300,25 @@ body {
   border:var(--textColorPrimary);
   font-weight: bold;
   color:var(--colorPrimary);
+  max-width: 25vw;
 }
 
 .image-logo{
   height: 5vh;
+}
+
+@media (min-height:300px) {
+  .navbar-bottom-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1030;
+  }
+}
+
+@media (max-width: 992px) {
+  .car-image-panel{
+    height: 35vh;
+  }
 }

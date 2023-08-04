@@ -44,6 +44,7 @@ class VehicleBaseView:
                 'color', 
                 'transmission',
                 'mileage',
+                'fuel_type',
                 'number_of_doors',
                 'license_plate',
                 'purchase_price', 
