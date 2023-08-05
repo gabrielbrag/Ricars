@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,15 +19,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/b465a69f50.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://kit.fontawesome.com/b465a69f50.css" crossorigin="anonymous">      
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> 
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-color fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand textBaseColor" href="{% url 'home' %}"><img class="image-logo" src="{% static "images/logo.png" %}"></img></a>
+            <a class="navbar-brand textColorPrimary" href="{% url 'home' %}"><img class="image-logo" src="{% static "images/logo.png" %}"></img></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,15 +34,15 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link textBaseColor" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link textColorPrimary" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link textBaseColor" href="{% url 'aboutView' %}">Sobre nós</a>
+                        <a class="nav-link textColorPrimary" href="{% url 'aboutView' %}">{% trans "About us" %}</a>
                     </li>
                     {% if context_company.whatsapp_number %}
                         <button type="button" class="btn btn-motors" onclick="window.open('https://api.whatsapp.com/send?phone=55{{context_company.whatsapp_number}}', '_blank')">
                             <i class="fab fa-whatsapp me-2 font-weight-bold"></i>
-                            Entrar em Contato
+                            {% trans "Get in contact" %}
                         </button>
                     {% endif %}
                 </ul>
@@ -58,18 +58,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0 textBaseColor"><i class="fas fa-map-marker-alt mr-2 textBaseColor"></i>{{ context_shop.shopAddress }}
+                    <p class="mb-0 textColorPrimary"><i class="fas fa-map-marker-alt mr-2 textColorPrimary"></i>{{ context_shop.shopAddress }}
                     </p>
                 </div>
                 <div class="col-md-6 text-md-right">
                     {% if context_company.facebook_link %}
-                        <a href="{{context_company.facebook_link}}"><i class="fab fa-facebook mr-3 textBaseColor"></i></a>
+                        <a href="{{context_company.facebook_link}}"><i class="fab fa-facebook mr-3 textColorPrimary"></i></a>
                     {% endif %}
                     {% if context_company.instagram_link %}
-                        <a href="{{context_company.instagram_link}}"><i class="fab fa-instagram mr-3 textBaseColor"></i></a>
+                        <a href="{{context_company.instagram_link}}"><i class="fab fa-instagram mr-3 textColorPrimary"></i></a>
                     {% endif %}
                     {% if context_company.whatsapp_number %}
-                        <a href="https://api.whatsapp.com/send?phone=55{{context_company.whatsapp_number}}"><i class="fab fa-whatsapp mr-2 textBaseColor"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=55{{context_company.whatsapp_number}}"><i class="fab fa-whatsapp mr-2 textColorPrimary"></i></a>
                     {% endif %}
                 </div>
             </div>

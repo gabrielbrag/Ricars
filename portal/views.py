@@ -40,9 +40,12 @@ def vehiclesPanel(request):
     return render(request, 'portal/vehiclesPanel.html', {"vehicles":vehicles})
 
 def vehicleView(request):
+    company = Company.objects.first()
     vehicle = Vehicle.objects.get(id=request.GET.get('id'))
+    shop    = Company.objects.first()
     vehicle_images = Vehicle_image.objects.filter(vehicle=vehicle).order_by("index")
     return render(request, 'portal/vehicleView.html', {'vehicle':vehicle, 'vehicle_images':vehicle_images})
 
 def aboutView(request):
+    company = Company.objects.first()
     return render(request, 'portal/about.html')

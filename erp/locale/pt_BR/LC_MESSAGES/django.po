@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 01:13+0000\n"
+"POT-Creation-Date: 2023-08-05 11:22-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,6 @@ msgid "Type"
 msgstr "Tipo"
 
 #: erp/models.py:60
-#| msgid "color"
 msgid "color name"
 msgstr "Cor"
 
@@ -183,7 +182,6 @@ msgid "Remove"
 msgstr "Remover"
 
 #: erp/templates/erp/forms/vehicle_model_edit.html:27
-#| msgid "Insert"
 msgid "Insert variant"
 msgstr "Inserir variante"
 

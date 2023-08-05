@@ -107,19 +107,19 @@ class Vehicle(models.Model):
     @property
     def purchase_price_formatted(self):
         if self.purchase_price is not None:
-            return locale.format_string('%.2f', self.purchase_price)
+            return locale.format_string('%.2f', self.purchase_price, grouping=True)
         return None
 
     @property
     def sale_value_formatted(self):
         if self.sale_value is not None:
-            return locale.format_string('%.2f', self.sale_value)
+            return locale.format_string('%.2f', self.sale_value, grouping=True)
         return None
     
     @property   
     def mileage_formatted(self):
         if self.mileage is not None:
-            return f'{self.mileage}     '
+            return locale.format_string('%d', self.mileage, grouping=True)
         return None    
     
     @property

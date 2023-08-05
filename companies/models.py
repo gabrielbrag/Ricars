@@ -1,14 +1,33 @@
 from django.db import models
+import re
 
 class Company(models.Model):
-    name            = models.CharField(max_length=30, null=True, blank=True)
-    document        = models.CharField(max_length=30, null=True, blank=True)
+    name            = models.CharField(max_length=30, blank=True)
+    document        = models.CharField(max_length=30, blank=True)
     instagram_link  = models.URLField(null=True, blank=True) 
     facebook_link   = models.URLField(null=True, blank=True)
-    whatsapp_number = models.CharField(max_length=13, null=True, blank=True)
-    
+    whatsapp_number = models.CharField(max_length=13, blank=True)
+    about_text      = models.TextField()
+
     def __str__(self):
         return self.name
+
+    @property
+    def whatsapp_number_international(self):
+        #TO DO Implement other countries
+        return "55" + self.whatsapp_number
+
+    @property 
+    def masked_whatsapp_number(self):
+        numeric_phone = re.sub(r'\D', '', self.whatsapp_number)
+        
+        if len(numeric_phone) < 10:
+            return self.whatsapp_number
+        
+        # Format the phone number with DDD and mask all but the last 4 digits
+        masked_phone = '({}) {}-{}'.format(numeric_phone[:2], numeric_phone[2:6], numeric_phone[-4:])
+        
+        return masked_phone
     
 class Shop(models.Model):
     name                    = models.CharField(max_length=30, default="")
@@ -26,11 +45,11 @@ class Shop(models.Model):
     
     @property
     def address_zipcodeFormatted(self):
-        return '%s - %s' % (self.address_zipcode[0:1], self.address_zipcode[2:])
+        return '%s - %s' % (self.address_zipcode[:5], self.address_zipcode[5:])
     
     @property
     def shopAddress(self):
-        return '%s, %s - %s, %s - %s, %s' % (self.address_street, 
+        return '%s, %s %s, %s - %s, %s' % (self.address_street, 
                                             self.address_number, 
                                             self.address_neighborhood, 
                                             self.address_city, 

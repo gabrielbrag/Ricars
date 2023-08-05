@@ -1,4 +1,6 @@
 {% extends 'portal/stock.html' %}
+{% load i18n %}
+
 {% block content %}
   <div class="container my-5">
     <div class="row" style="margin-top:13vh;">
@@ -21,17 +23,15 @@
             </div>
             <a class="carousel-control-prev" href="#carCarousel" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carCarousel" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
             </a>
           </div>
         </div>
 
-        <h3 class="page-header">Detalhes do Veículo</h3>
-        <div class="interno" style="line-height: 1.5; font-family: Arial, sans-serif; color: #333;">
+        <h3 class="page-header">{% trans "Vehicle details" %}</h3>
+        <div class="car-observation-text">
           <p>{{ vehicle.salesman_observation|linebreaks }}</p>
         </div>
 
@@ -43,16 +43,16 @@
             <div class="last-name">{{ vehicle.vehicle_variant.variant_name }} / {{ vehicle.model_year }}</div>
           </h1>
           <div class="box-price-detail">
-            <h2 class="text-left price-detail text-nowrap">R$ <span id="valor_veic">99.900,00</span></h2>
+            <h2 class="text-left price-detail text-nowrap">R$ {{ vehicle.sale_value_formatted }}</h2>
           </div>
           <div class="mb-3 pddng-0">
             <ul class="collection list-unstyled">
               <li class="collection-header">
-                Ano Fab.<br>
+                {% trans "Fab. year" %}<br>
                 <span class="text-bold h6">{{ vehicle.manufacture_year }}</span>
               </li>
               <li class="collection-header">
-                Câmbio<br>
+                {% trans "Transmission" %}<br>
                 <span class="text-bold h6">{{ vehicle.transmission_formatted }}</span>
               </li>
               <li class="collection-header">
@@ -60,15 +60,15 @@
                 <span class="text-bold h6">{{ vehicle.mileage_formatted }}</span>
               </li>
               <li class="collection-header">
-                Combustível<br>
+                {% trans "Fuel" %}<br>
                 <span class="text-bold h6">{{ vehicle.fuel_type_formatted }}</span>
               </li>
               <li class="collection-header">
-                Cor<br>
+                {% trans "Color" %}<br>
                 <span class="text-bold h6">{{ vehicle.color }}</span>
               </li>
               <li class="collection-header">
-                Placa<br>
+                {% trans "Plate" %}<br>
                 <span class="text-bold h6">{{ vehicle.maskedLicensePlate }}</span>
               </li>
             </ul>
@@ -76,23 +76,22 @@
       </div>
         <div>
           <a class="btn-success btn btn-lg btn-block mb-3 text-uppercase"
-            href="https://wa.me/5541998560092?text=Olá, vi o anúncio no site e gostaria de saber mais sobre {{ vehicle.vehicle_variant }}. Aguardo contato, obrigado!"
-            title="Fale conosco pelo WhatsApp" target="_blank">
-            <i class="fab fa-whatsapp"></i> Fale com a loja
+            href="https://wa.me/{{ context_company.whatsapp_number_international }}?text={% trans "Hi, I saw the ad on the website and would like to know more about the "%}{{ vehicle.vehicle_variant }}. {% trans "I look forward to hearing from you, thank you!" %}"
+            title="{% trans "Speak with us in the whatsapp" %}" target="_blank">
+            <i class="fab fa-whatsapp"></i> {% trans "Speak with the store" %}
           </a>
         </div>
 
-        <a class="btn btn-secondary btn-block btn-lg text-uppercase mb-3" id="(41)99856-0092" href="tel:(41)99856-0092">
-          <i class="fas fa-phone"></i> (41)99856-0092
+        <a class="btn btn-secondary btn-block btn-lg text-uppercase mb-3" href="tel:{{ company.masked_whatsapp_number }}">
+          <i class="fas fa-phone"></i> {{ context_company.masked_whatsapp_number }}
         </a>
-        <div class="card card-body card-default margin-top-30" style="background-color:var(--bgColorSecondary)">
+        <div class="card card-body card-default margin-top-30 background-secondary">
           <address>
-
-            <a style="color:var(--textColorPrimary)" href="https://www.google.com/maps/place/R.+Francisco+Derosso,+2615+-+Xaxim,+Curitiba+-+PR,+81710-000/@-25.5113047,-49.2609191,17z/data=!4m6!3m5!1s0x94dcfb13db72c8ed:0x35d48e39a81825fb!8m2!3d-25.5114693!4d-49.2593742!16s%2Fg%2F11csbqnf89"
-              target="_blank" class="btn btn-default pull-right"> <i class="fas fa-map-marker-alt"></i> Ver mapa
+            <a class="textColorPrimary" href="https://www.google.com/maps/place/{{context_shop.shopAddress}}"
+              target="_blank" class="btn btn-default pull-right"> <i class="fas fa-map-marker-alt"></i> {% trans "View in map" %}
             </a>
-            <h4 class="page-header padding-top-10" style="color:var(--textColorPrimary)">Localização</h4>
-            <p class="mb-20" style="color:var(--textColorPrimary)">RUA FRANCISCO DEROSSO,2615 XAXIM - Curitiba</p>
+            <h4 class="page-header padding-top-10 textColorPrimary">{% trans "Location" %}</h4>
+            <p class="mb-20 textColorPrimary">{{ context_shop.shopAddress }}</p>
         </div>
         </address>
       </div>

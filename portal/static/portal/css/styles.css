@@ -1,15 +1,14 @@
 
 :root {
-  --textColorPrimary: #FFD700;
-  --textColorPrimaryDarker: #BB5100;
-  --bgColorPrimary: #f1f1f1;
-  --colorPrimary: #333;
+  --textcolorSecondary: #FFD700;
+  --textcolorSecondaryDarker: #BB5100;
+  --bgtextColorPrimary: #f1f1f1;
+  --textColorPrimary: #333;
   --bgColorSecondary: #202020;
   --bgColorTransparent: rgba(0, 0, 0, 0.6);
   --colorWhite: #fff;
   --btnBorderColor: #fff;
   --btnColor: #fff;
-  --textColorSecondary: #777;
   --boxBorderColor: #ccc;
   --fontWeightBold: 700;
   --fontWeightSemiBold: 600;
@@ -24,8 +23,8 @@
 }
 
 body {
-    background-color: var(--bgColorPrimary);
-    color: var(--colorPrimary);
+    background-color: var(--bgtextColorPrimary);
+    color: var(--textColorPrimary);
     font-family: 'Montserrat', sans-serif;
   }
 
@@ -81,8 +80,8 @@ body {
     text-align: center;
   }
 
-  .textBaseColor {
-    color: var(--textColorPrimary) !important;
+  .textColorPrimary{
+    color: var(--textcolorSecondary) !important;
   }
 
   .collection-header {
@@ -92,7 +91,7 @@ body {
     font-size: var(--fontSizeMedium);
     text-align: center;
     border-radius: 5px;
-    color:var(--textColorPrimary);
+    color:var(--textcolorSecondary);
   }
 
   .collection {
@@ -109,13 +108,13 @@ body {
   .vehicle-title .first-name {
     font-size: 24px;
     font-weight: var(--fontWeightBold);
-    color: var(--textColorPrimary);
+    color: var(--textcolorSecondary);
   }
 
   .vehicle-title .last-name {
     font-size: var(--fontSizeMedium);
     font-weight: var(--fontWeightNormal);
-    color: var(--textColorPrimary);
+    color: var(--textcolorSecondary);
   }
 
   .price-detail {
@@ -124,26 +123,11 @@ body {
     margin: 8px 0 15px;
     padding-bottom: 20px;
     color: #434141;
-    color: var(--textColorPrimary);
+    color: var(--textcolorSecondary);
   }
 
   .text-bold {
     font-weight: bold;
-  }
-
-  .veiculo-opcionais ul li::before {
-    color: var(--textColorSecondary);
-    font-weight: var(--fontWeightBold);
-    display: inline-block;
-    width: .7em;
-    margin-left: -1em;
-    line-height: 2em;
-  }
-
-  .veiculo-opcionais ul {
-    /* list-style: none; */
-    padding-left: 15px;
-    color: var(--textColorPrimary)
   }
 
 .filter-title {
@@ -165,7 +149,7 @@ body {
     z-index: 9;
 }
 
-.carro-img {
+.car-img {
   /* max-height: 13vw; */
   /* min-height: 13vw; */
   overflow: hidden;
@@ -215,7 +199,7 @@ body {
 .box-vehicle-result .price {
   font-size: 20px;
   font-weight: var(--fontWeightSemiBold);
-  color: var(--textColorPrimaryDarker);
+  color: var(--textcolorSecondaryDarker);
   margin-top: 5px;
 }
 
@@ -290,21 +274,35 @@ body {
 }
 
 .contentDiv{
-  margin-top:5.5rem;
+  margin-top:12vh;
   padding-left:5vh;
   padding-right:5vh;
 }
 
 .btn-motors{
-  background-color:var(--textColorPrimary);
-  border:var(--textColorPrimary);
+  background-color:var(--textcolorSecondary);
+  border:var(--textcolorSecondary);
   font-weight: bold;
-  color:var(--colorPrimary);
+  color:var(--textColorPrimary);
   max-width: 25vw;
 }
 
 .image-logo{
   height: 5vh;
+}
+
+.fuel-type-text{
+  font-size:9px;
+}
+
+.car-observation-text{
+  line-height: 1.5; 
+  font-family: Arial, sans-serif; 
+  color: var(--textColorPrimary);
+}
+
+.background-secondary{
+  background-color:var(--bgColorSecondary);
 }
 
 @media (min-height:300px) {
