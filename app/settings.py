@@ -146,6 +146,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 TEST_DISCOVER_PATTERN = "tests.py"
 
 LOGIN_REDIRECT_URL = '/erp/vehicles'
