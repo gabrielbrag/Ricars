@@ -8,7 +8,7 @@ class AuthRequiredMiddleware:
         # One-time configuration and initialization.
 
     def __call__(self, request):
-        if request.user.is_authenticated or request.path == settings.LOGIN_URL:
+        if not request.path.startswith('/erp/') or request.user.is_authenticated or request.path == settings.LOGIN_URL:
             return self.get_response(request)
         else:
             return redirect(reverse('login'))
