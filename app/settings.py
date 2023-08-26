@@ -22,13 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9@!ea!-#n9-p006_%dcny)xfjhreyh&b+^hga16@fl53t7#7#-'
+SECRET_KEY = '2wj_1!#%&**5azdpt672@^wmu$l*0mz&gasdaio0dp1)85!rqb(i543b**g='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['18.224.118.115', 'localhost']
 
 # Application definition
 
@@ -120,7 +119,8 @@ LANGUAGES = [
     ('pt-BR', 'Portuguese'),
 ]
 
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+os.environ['LC_ALL'] = 'pt_BR.UTF-8'
+os.environ['LANG'] = 'pt_BR.UTF-8'
 
 TIME_ZONE = 'UTC'
 
@@ -132,8 +132,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -142,11 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/ricars/staticfiles/'
 
 TEST_DISCOVER_PATTERN = "tests.py"
 
@@ -155,3 +153,7 @@ LOGIN_URL = '/erp/login/'
 LOGOUT_REDIRECT_URL = 'login'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True

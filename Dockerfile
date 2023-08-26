@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "manage.py", "runserver", "0.0.0.0:9000"]
+RUN python manage.py collectstatic --noinput

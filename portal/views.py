@@ -3,7 +3,7 @@ from erp.models import Vehicle, Vehicle_image
 from companies.models import Company, Shop
 
 def home(request):        
-    vehicles = Vehicle.objects.all()
+    vehicles = Vehicle.objects.filter(sold=False).order_by('sale_value')
 
     company = Company.objects.first()
     shop    = Company.objects.first()
@@ -35,7 +35,7 @@ def vehiclesPanel(request):
             else:
                 filter_args[model_field] = value
         
-    vehicles = Vehicle.objects.filter(**filter_args)
+    vehicles = Vehicle.objects.filter(sold=False, **filter_args).order_by('sale_value')
     
     return render(request, 'portal/vehiclesPanel.html', {"vehicles":vehicles})
 

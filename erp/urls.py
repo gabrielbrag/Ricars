@@ -38,5 +38,5 @@ urlpatterns = [
     path('vehicles', VehicleListView.as_view(), name="vehicle_list"),
     path('vehicles/<int:pk>/edit/', VehicleUpdateView.as_view(), name='vehicle_edit'),
     path('vehicles/insert/', VehicleCreateView.as_view(), name='vehicle_create'),
-    path('vehicle_models/<int:pk>/delete/', VehicleDeleteView.as_view(http_method_names=['post']), name='vehicle_delete'),
+    path('vehicles/<int:pk>/delete/', VehicleDeleteView.as_view(http_method_names=['post']), name='vehicle_delete'),
 ]

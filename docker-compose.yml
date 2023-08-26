@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --preload
+    ports:
+      - 8005:8000
+    volumes:
+      - ./staticfiles:/ricars/staticfiles   # Mount static files directory
+      - ./media:/ricars/media   
+      - ./db.sqlite3:/ricars/db.sqlite3
+      # Mount static files directory
