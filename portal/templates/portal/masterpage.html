@@ -5,12 +5,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Braga Motors</title>
     <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> 
+    {% block imports %}
+    {% endblock %}
 </head>
 
 <body>
@@ -69,4 +71,5 @@
     </footer>
     <link rel="stylesheet" type="text/css" href="{% static 'portal/css/styles.css' %}">  
     <script src="{% static 'portal/js/vehicles.js' %}"></script> 
+    <script src="{% static 'portal/js/stock.js' %}"></script> 
 </body>

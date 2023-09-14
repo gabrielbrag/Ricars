@@ -2,25 +2,22 @@
 
 <div class="row">
     {% for vehicle in vehicles %}
-        <div class="col-lg-3 col-md-12" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
+        <div class="col-lg-4 col-md-12" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
             <div class="card card-car-margin">
                 <div class="row box-vehicle-result no-padding no-margin">
                     <div class="car-img col-md-12 no-padding fit-col-img d-flex justify-content-center">
-                            <img src="{{ vehicle.frontImageURL }}"
-                                class="img-responsive lazy">
+                            <img src="{{ vehicle.frontImageURL }}" class="img-responsive vehicle-card-img">
                         </a>
                     </div>
                     <div class="car-info col-md-12">
                         <div class="row">
                             <div class="col-md-12 pact-result">
-                                <h2>
                                     <a href="{% url 'vehicleView' %}?id={{ vehicle.id }}"
                                         title="{% trans "See more details about the vehicle "%} {{ vehicle.vehicle_variant }}">
                                         <div class="year">{{ vehicle.manufacture_year }}</div>
-                                        <div class="h4 first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
-                                        <div class="h3 second-name">{{ vehicle.vehicle_variant.variant_name }}</div>
+                                        <div class="first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
+                                        <div class="second-name">{{ vehicle.vehicle_variant.variant_name }}</div>
                                     </a>
-                                </h2>
                                     <h3 class="price indigo-text text-darken-4">R$
                                         {{ vehicle.sale_value_formatted }}
                                     </h3>

@@ -1,29 +1,31 @@
+{% load static %}
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-
+    <script src="{% static 'erp/js/masterpage.js' %}"></script> 
     {% include 'erp/imports.html' %}
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
     {% load i18n %}
-    <nav class="navbar navbar-expand-md navbar-light bg-powder-blue shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-background-secondary shadow-sm">
         <div class="container title-bar">
             <a class="navbar-brand brand-title" href="">
-                <p class="rosea title-bar"><i class="fas fa-car"></i>RICARS</p>
+                <p class="primary title-bar"><i class="fas fa-car"></i>RICARS</p>
             </a>
         </div>
         <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
-                <span class="navbar-toggler-icon"></span>
+            <button id="collapse-control" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
+                    <i class="fas fa-arrow-right" style="color:var(--primary)"></i>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="flex-login">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"></li>
                     <li class="nav-item dropdown">  
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle rosea auth-controls" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>                                    
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle primary auth-controls" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>                                    
                            <i class="fas fa-user"></i>{{ request.user.name }}<span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -36,7 +38,7 @@
             </div>
     </nav>
     <div class="row mw-90" style="max-width: 100%;">
-        <div id="sidebar" class="sidebar float-left col-md-2">
+        <div id="sidebar" class="sidebar float-left col-md-2 col-sm-12 collapse">
             <div class="items-container ml-1">
                 <a href="{% url 'brand_list' %}"><i class="fas fa-flag"></i> {% trans 'Brands' %}</a><hr>
                 <a href="{% url 'color_list' %}"><i class="fas fa-tint"></i> {% trans 'Colors' %}</a><hr>

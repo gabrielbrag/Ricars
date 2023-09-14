@@ -1,8 +1,9 @@
 :root{
-    --rosea: #FFD523;
-    --powder-blue: #2C2E43;
+    --primary: #FFD523;
+    --background-secondary: #2C2E43;
     --cotton: red;
     --smoke: pink;
+    --textPrimary:black;
 }
 
 .btn-cyan{
@@ -31,6 +32,7 @@
 
 .main-content{
     margin-top: 3vh;   
+    padding-left:3vh;
 }
 
 .controlGrid{
@@ -43,15 +45,14 @@
 
 .sidebar{
     width: 200px;
-    background-color: var(--powder-blue);
+    background-color: var(--background-secondary);
     padding-left: 3vh;
     padding-top: 3vh;
-    height: auto;
-    min-height: 600px;
+    min-height: 95vh;
 }
 
 .sidebar a{
-    color: var(--rosea);
+    color: var(--primary);
     font-size: 16px;
 }
 
@@ -59,13 +60,13 @@
     margin-right: 3px;
 }
 
-.rosea{
-    color: var(--rosea) !important;
+.primary{
+    color: var(--primary) !important;
     
 }
 
-.bg-powder-blue{
-    background-color: var(--powder-blue);
+.bg-background-secondary{
+    background-color: var(--background-secondary);
 }
 
 .user-info{
@@ -131,11 +132,11 @@
   }
 
   /* Custom class for the form group */
-  .custom-form-group {
+  /* .custom-form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
+  } */
 
   /* Custom class for the select element */
   .custom-form-select {
@@ -152,3 +153,30 @@
   .custom-form-button {
     margin-top: auto; /* Align button to the bottom of the form group */
   }
+
+.container-login{
+    position:relative;
+    top:15vh;
+}
+
+.btn-primary{
+    background-color:var(--background-secondary);
+    border-color: var(--background-secondary);
+    color:var(--primary)
+}
+
+.btn-primary:hover{
+    background-color:var(--primary);
+    border-color: var(--primary);
+    color:var(--textPrimary);
+}
+
+.flex-login{
+    display: flex;
+    flex-basis: auto;
+    flex-grow:1;
+}
+
+.navbar-light .navbar-toggler-icon{
+    color:var(--primary);
+}

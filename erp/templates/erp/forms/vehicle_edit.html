@@ -82,7 +82,7 @@
 </div>
 
 <div class="row custom-form-row mb-3">
-  <div class="col-md-2 custom-form-group">
+  <div class="col-sm-4 col-md-2 custom-form-group">
     <label for="vehicle_cost_type">{% trans 'Cost type' %}</label>
     <select class="form-control custom-form-select" name="vehicle_cost_type" id="cost_type">
       <option value="">{% trans 'Select...' %}</option>
@@ -91,25 +91,25 @@
       {% endfor %}
     </select>
   </div>
-  <div class="col-md-3 custom-form-group">
+  <div class="col-sm-4 col-md-3 custom-form-group">
     <label for="cost_name">{% trans 'Cost name' %}</label>
     <div class="input-group">
       <input type="text" id="cost_name" class="form-control custom-form-input" placeholder="{% trans 'Enter cost name' %}">
     </div>
   </div>
-  <div class="col-md-2 custom-form-group">
+  <div class="col-sm-4 col-md-2 custom-form-group">
     <label for="cost_name">{% trans 'Value' %}</label>
     <div class="input-group">
       <input type="number" id="cost_value" class="form-control custom-form-input">
     </div>
   </div>
-  <div class="col-md-2 custom-form-group">
+  <div class="col-sm-4 col-md-2 custom-form-group">
     <label for="cost_name">{% trans 'Date' %}</label>
     <div class="input-group">
       <input type="date" id="expense_date" class="form-control custom-form-input">
     </div>
   </div>
-  <div class="col-md-2 custom-form-group custom-form-button">
+  <div class="col-sm-4 col-md-2 custom-form-group custom-form-button">
     <button id="insertButton" class="btn btn-primary" type="button">{% trans 'Add' %}</button>
   </div>
 </div>

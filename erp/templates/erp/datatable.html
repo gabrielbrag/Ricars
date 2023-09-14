@@ -12,39 +12,37 @@
 
 <body>
     {% load i18n %}
-    <div class="container">
-        <div class="row mb-3 d-flex flex-row-reverse">
-            <a href="{{ dataTable.insertViewURL }}">
-                <button type="button" class="btn btn-primary">{% trans 'Insert' %}</button>
-            </a>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <table id="example" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            {% for column in dataTable.columns %}
-                                <th>{{column}}</th>
-                            {% endfor %}
-                            {% if dataTable.editViewURL != None %}
-                                <th></th>
-                            {% endif %}
-                            {% if dataTable.deleteViewURL != None %}
-                                <th></th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in dataTable.rows %}
-                        <tr>
-                            {% for value in row.values %}
-                            <td>{{value|safe}}</td>
-                            {% endfor %}
-                        </tr>
+    <div class="row mb-3 d-flex flex-row-reverse">
+        <a href="{{ dataTable.insertViewURL }}">
+            <button type="button" class="btn btn-primary">{% trans 'Insert' %}</button>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        {% for column in dataTable.columns %}
+                            <th>{{column}}</th>
                         {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                        {% if dataTable.editViewURL != None %}
+                            <th></th>
+                        {% endif %}
+                        {% if dataTable.deleteViewURL != None %}
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in dataTable.rows %}
+                    <tr>
+                        {% for value in row.values %}
+                        <td>{{value|safe}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -1,14 +1,24 @@
 {% extends 'portal/masterpage.html' %}
+
+{% load static %}
+
+{% block imports %}
+    
+{% endblock %}
+
 {% load i18n %}
 
 {% block content %}
     <div class="contentDiv">
         <div class="row m-0">
             <div id="sidebar" class="col-lg-3 col-xs-12 sidebar sidebar-offcanvas">
-                <div>
-                    <h4><i class="fa fa-filter fa-solid fa-xs"></i>{% trans "Filter results" %}</h4>
+                <div data-toggle="collapse" data-target="#form-filters" aria-controls="form-filters" id="collapse-control">
+                    <h4>
+                        <i class="fa fa-filter fa-solid fa-xs"></i>{% trans "Filter results" %}
+                        <i class="fa fa-angle-down d-lg-none"></i>
+                    </h4>
                 </div>
-                <form id="form-filters" data-target="ajax-items-filter">
+                <form id="form-filters" class="collapse d-lg-block">
                     <div class="card-group-item">
                         <p class="filter-title page-header">{% trans "Type" %}</p>
                         <div class="filter-content">
@@ -59,21 +69,19 @@
                         </ul>
                     </div>
 
-                    <form id="form-filters" data-target="ajax-items-filter">
-                        <div class="card-group-item">
-                            <p class="filter-title page-header">{% trans "Year" %}</p>
-                            <div class="filter-content">
-                                <div class="card-body p-0">
-                                    {% for year in possible_vehicle_years %}
-                                        <label class="inline-form-check">
-                                            <input class="form-check-input" type="checkbox" name="checkboxYear" value="{{ year }}">
-                                            {{ year }}
-                                        </label>                                    
-                                    {% endfor %}
-                                </div> 
-                            </div>
+                    <div class="card-group-item">
+                        <p class="filter-title page-header">{% trans "Year" %}</p>
+                        <div class="filter-content">
+                            <div class="card-body p-0">
+                                {% for year in possible_vehicle_years %}
+                                    <label class="inline-form-check">
+                                        <input class="form-check-input" type="checkbox" name="checkboxYear" value="{{ year }}">
+                                        {{ year }}
+                                    </label>                                    
+                                {% endfor %}
+                            </div> 
                         </div>
-                    </form>
+                    </div>
                 </form>
             </div>
             <div id="vehiclesPanel" class="col-sx-12 col-lg-9 mb-5">
