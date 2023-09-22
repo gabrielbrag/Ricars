@@ -12,7 +12,12 @@ class VehicleListView(DataTableMixin, TemplateView):
     template_name = 'erp/default_list.html'
 
     def get_data_table(self):
-        dataTableColumns = [_("Vehicle"), _("Year"), _("Color"), _("Purchase price"), _("Sale price"), _("Sold")]
+        dataTableColumns = [{"name":_("Vehicle")}, 
+                            {"name":_("Year"), "hideInMobile":True}, 
+                            {"name":_("Color"), "hideInMobile":True}, 
+                            {"name":_("Purchase price"), "hideInMobile":True}, 
+                            {"name":_("Sale price")},
+                            {"name":_("Sold")}]
         rows = []
         for vehicle in Vehicle.objects.all():
             vehicleValues = []

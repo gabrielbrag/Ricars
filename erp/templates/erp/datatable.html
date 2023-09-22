@@ -19,11 +19,13 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="baseDataTable" class="table table-striped">
                 <thead>
                     <tr>
                         {% for column in dataTable.columns %}
-                            <th>{{column}}</th>
+                                <th {% if column.hideInMobile %} hideInMobile=True{% endif %}>
+                                    {{column.name}}
+                                </th>
                         {% endfor %}
                         {% if dataTable.editViewURL != None %}
                             <th></th>
@@ -36,8 +38,10 @@
                 <tbody>
                     {% for row in dataTable.rows %}
                     <tr>
-                        {% for value in row.values %}
-                        <td>{{value|safe}}</td>
+                        {% for item in row.values %}
+                        <td>
+                            {{item|safe}}
+                        </td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
@@ -49,14 +53,43 @@
 
     <!-- Initialize DataTables -->
     <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize DataTable
+            var dataTable = $('#baseDataTable').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json'
-                }
+                },
+                autoWidth: false,
+                responsive:false,
+                scrollX:true
             });
+            
         });
 
+        window.onload = function(){
+            dataTable = $('#baseDataTable').DataTable();
+
+            var table = document.getElementById("baseDataTable");
+
+            var headerRow = table.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+
+            columnsToHideVisibily = [];
+
+            for (var i = 0; i < headerRow.cells.length; i++) {
+                var headerCell = headerRow.cells[i];
+                if (headerCell.hasAttribute("hideInMobile") && window.screen.width < 992) {
+                    columnsToHideVisibily.push(i)
+                }
+            }
+            
+            if (columnsToHideVisibily.length > 0){
+                dataTable.columns(columnsToHideVisibily).visible(false);
+            }
+
+            dataTable.draw();
+        };
+        
+        
         function callDelete(URL) {
             // Get the CSRF token from the cookie
             var csrftoken = getCookie('csrftoken');
@@ -95,8 +128,6 @@
                 return cookieValue;
             }
         }
-        
-           
     </script>
 </body>
 

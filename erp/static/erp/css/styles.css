@@ -180,3 +180,19 @@
 .navbar-light .navbar-toggler-icon{
     color:var(--primary);
 }
+
+.btn-login{
+    background-color: var(--background-secondary);
+    color:var(--primary);
+    border-color:var(--primary);
+}
+
+.btn-login:hover{
+    background-color: var(--primary);
+    color:var(--background-secondary);
+    border-color:var(--background-secondary);
+}
+
+.actionButton {
+    color: var(--background-secondary);
+}

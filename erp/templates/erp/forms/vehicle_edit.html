@@ -179,7 +179,6 @@
   function convertTableToJSON(){
     let tableData = [];
     tabledata = convertTableDataToArray("costTable")
-    console.log(tabledata);
 
     $('#table-data-field').val(JSON.stringify($('#costTable').DataTable().data().toArray()));      
   } 
@@ -256,7 +255,8 @@
           { data: 'cost_type_name' },
           { data: 'cost_value'},
           { data: 'expense_date'},
-          { data: 'remove' }]
+          { data: 'remove' }],
+          scrollX:true
         });
 
       $('#insertButton').on('click', function() {

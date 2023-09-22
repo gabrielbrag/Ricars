@@ -28,7 +28,7 @@ class BrandBaseView():
         fields_manually_created = ['vehicle_variant', 'salesman_observation']
 
         for field_name, field in form.fields.items():
-            if isinstance(field.widget, CheckboxInput):
+            if isinstance(field.widgetz, CheckboxInput):
                 field.widget.attrs['class'] = 'form-check'               
             else:
                 field.widget.attrs['class'] = 'form-control'

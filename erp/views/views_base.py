@@ -22,10 +22,10 @@ class DataTableMixin:
         return context
 
     def mountEditIcon(self, viewURL):
-        return mark_safe('<a href="' + viewURL + '"><i class="fas fa-lg fa-edit"></i></a>')
+        return mark_safe('<a href="' + viewURL + '"><i class="fas fa-lg fa-edit actionButton"></i></a>')
 
     def mountDeleteIcon(self, deleteURL):
-        return mark_safe('<span class="clickableAwesomeFont"><i class="fas fa-lg fa-trash" onClick="callDelete(\'' + deleteURL + '''\')"></i>
+        return mark_safe('<span class="clickableAwesomeFont"><i class="fas fa-lg fa-trash actionButton" onClick="callDelete(\'' + deleteURL + '''\')"></i>
                         <style>
                             .clickableAwesomeFont {
                                 cursor: pointer;
