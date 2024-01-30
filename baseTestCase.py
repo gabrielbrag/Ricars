@@ -1,8 +1,10 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from erp.models import Brand, Color, Vehicle, Vehicle_model, Vehicle_model_variant
 
 class baseTestCase(TestCase):
     def setUp(self):
+        self.factory = RequestFactory()
+        
         self.client = Client()
         self.brand1 = Brand.objects.create(brand_name='Toyota')
         self.brand2 = Brand.objects.create(brand_name='Honda')

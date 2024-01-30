@@ -1,14 +1,44 @@
-from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, UpdateView, CreateView
-from django.core.serializers import serialize
+from django.views.generic import TemplateView
 from django.http import JsonResponse
-from erp.models import Vehicle, Brand, Color, Vehicle_model, Vehicle_model_variant
 from django.utils.translation import gettext as _
 from django.utils.safestring import mark_safe
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
+from django import forms
 from django.forms.models import model_to_dict
-from django.db import models
-import json
+from django.forms.widgets import CheckboxInput
+import re
+
+class BaseView():
+    model = None
+    fields = []
+    template_name = ''
+    success_url = None
+    fields_manually_created = []
+
+    def get_context_data(self, **kwargs):        
+        form = self.get_form()
+        context = {}
+
+        for field_name, field in form.fields.items():
+            if field_name == 'password':
+                field.widget = forms.PasswordInput()
+            
+            if isinstance(field.widget, CheckboxInput):
+                field.widget.attrs['class'] = 'form-check'               
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
+        automatic_fields  = [field for field in form if field.name not in self.fields_manually_created]
+        context['automatic_fields'] = automatic_fields
+
+        manual_fields = []
+        for field in form:
+            if field not in automatic_fields:
+                manual_fields.append(field)
+
+        context['manual_fields'] = manual_fields
+            
+        return context
 
 class DataTableMixin:
     def get_data_table(self):
@@ -25,7 +55,7 @@ class DataTableMixin:
         return mark_safe('<a href="' + viewURL + '"><i class="fas fa-lg fa-edit actionButton"></i></a>')
 
     def mountDeleteIcon(self, deleteURL):
-        return mark_safe('<span class="clickableAwesomeFont"><i class="fas fa-lg fa-trash actionButton" onClick="callDelete(\'' + deleteURL + '''\')"></i>
+        delete_icon = mark_safe('<span class="clickableAwesomeFont"><i class="fas fa-lg fa-trash actionButton" onClick="callDelete(\'' + deleteURL + '''\')"></i>
                         <style>
                             .clickableAwesomeFont {
                                 cursor: pointer;
@@ -33,6 +63,10 @@ class DataTableMixin:
                             }
                         </style>'''
         )
+        
+        trailing_blank_pattern_removal = r'\s{2,}'
+        
+        return re.sub(trailing_blank_pattern_removal, '', delete_icon)     
 
 class DataTableListView(DataTableMixin, TemplateView):
     template_name = 'erp/default_list.html'

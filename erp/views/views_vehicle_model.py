@@ -1,4 +1,4 @@
-from .views_base import DataTableListView
+from .views_base import BaseView, DataTableListView
 from django.views.generic import ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
@@ -24,29 +24,11 @@ class VehicleModelListView(DataTableListView):
 
         return super().get(self, request, *args, **kwargs)
 
-class VehicleModelBaseView():
+class VehicleModelBaseView(BaseView):
     model = Vehicle_model
     fields = ['brand', 'model_name', 'model_type']
     template_name = 'erp/forms/vehicle_model_edit.html'
     success_url = reverse_lazy('vehicle_model_list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        form = self.get_form()
-
-        fields_manually_created = ['vehicle_variant', 'salesman_observation']
-
-        for field_name, field in form.fields.items():
-            if isinstance(field.widget, CheckboxInput):
-                field.widget.attrs['class'] = 'form-check'               
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-        automatic_fields  = [field for field in form if field.name not in fields_manually_created]
-        context['automatic_fields'] = automatic_fields
-
-        return context
 
 class VehicleModelCreateView(VehicleModelBaseView, CreateView):
     def form_valid(self, form):

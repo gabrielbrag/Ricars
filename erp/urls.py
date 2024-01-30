@@ -5,10 +5,16 @@ from .views.views_vehicle_model     import VehicleModelListView, VehicleModelCre
 from .views.views_cost_type         import VehicleCostTypeListView, VehicleCostTypeCreateView, VehicleCostTypeUpdateView,VehicleCostTypeDeleteView
 from .views.views_vehicle           import VehicleListView, VehicleCreateView, VehicleUpdateView, VehicleDeleteView
 from .views.views_auth              import logout_view, CustomLoginView
+from .views.views_user              import UserListView, UserCreateView, UserUpdateView, UserDeleteView
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
+
+    path('users/', UserListView.as_view(), name='user_list'),
+    path('users/<int:pk>/edit/', UserUpdateView.as_view(), name='user_edit'),
+    path('users/insert/', UserCreateView.as_view(), name='user_create'),    
+    path('users/<int:pk>/delete/', UserDeleteView.as_view(http_method_names=['post']), name='user_delete'),
 
     path('brands/', BrandListView.as_view(), name='brand_list'),
     path('brands/JSON', BrandListView.as_view(json=True), name='brand_json'),

@@ -1,4 +1,4 @@
-from .views_base import DataTableMixin
+from .views_base import BaseView, DataTableMixin
 from django.views.generic import ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
@@ -41,7 +41,7 @@ class VehicleListView(DataTableMixin, TemplateView):
         }
         return data_table
 
-class VehicleBaseView:
+class VehicleBaseView(BaseView):
     model = Vehicle
     fields = ['vehicle_variant', 
                 'model_year', 
@@ -59,33 +59,7 @@ class VehicleBaseView:
                 
     template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        form = self.get_form()
-
-        fields_manually_created = ['vehicle_variant', 'salesman_observation']
-
-        for field_name, field in form.fields.items():
-            if isinstance(field.widget, CheckboxInput):
-                field.widget.attrs['class'] = 'form-check'               
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-        automatic_fields  = [field for field in form if field.name not in fields_manually_created]
-        context['automatic_fields'] = automatic_fields
-
-        manual_fields = []
-        for field in form:
-            if field not in automatic_fields:
-                manual_fields.append(field)
-
-
-        context['manual_fields'] = manual_fields
-
-        return context
-    
+    fields_manually_created = ['vehicle_variant', 'salesman_observation']   
 
 class VehicleCreateView(VehicleBaseView, CreateView):
     def get_context_data(self, **kwargs):

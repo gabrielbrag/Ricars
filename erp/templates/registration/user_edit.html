@@ -1,0 +1,30 @@
+{% extends 'erp/masterpage.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<form method="post">
+    {% for field in automatic_fields %}
+    <div class="form-group">
+        {% if field.name == 'password' %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% else %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% endif %}
+
+      {% if field.errors %}
+      <div class="errors">
+        {% for error in field.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+            </div>
+    {% endfor %}
+    {% csrf_token %}
+    
+    <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+</form>
+{% endblock %}
