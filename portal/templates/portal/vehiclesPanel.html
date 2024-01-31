@@ -2,7 +2,7 @@
 
 <div class="row">
     {% for vehicle in vehicles %}
-        <div class="col-lg-4 col-md-12" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
+        {% comment %} <div class="col-lg-4 col-md-12" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
             <div class="card card-car-margin">
                 <div class="row box-vehicle-result no-padding no-margin">
                     <div class="car-img col-md-12 no-padding fit-col-img d-flex justify-content-center">
@@ -52,6 +52,51 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
+
+        <div class="car-card" style="borderRadius: '8px'; boxShadow: '0px 0px 10px rgba(0,0,0,0.1)'; transition: '0.3s';" id="vehicleCard_ID_{{ vehicle.id }}" onclick="location.href='{% url 'vehicleView' %}?id={{ vehicle.id }}';">
+            <div class="row box-vehicle-result no-padding no-margin">
+              <div class="car-img col-md-12 no-padding fit-col-img d-flex justify-content-center">
+                <img alt={{ vehicle.vehicle_variant.vehicle_model }} src={{ vehicle.frontImageURL }} class="img-responsive vehicle-card-img" />
+              </div>
+              <div class="car-info col-md-12">
+                <div class="row">
+                    <div class="col-md-12 pact-result">
+                      <div class="year">{{ vehicle.manufacture_year }}</div>
+                        <div class="first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
+                        <h3 class="price indigo-text text-darken-4">R$
+                            {{ vehicle.sale_value_formatted }}
+                        </h3>
+                        <div class="optionals">
+                            <div class="box-optionals-home">
+                                <div>
+                                    <i class="fa fa-cog fa-xl"></i>
+                                </div>
+                                <div>
+                                    {{ vehicle.transmission_formatted }}
+                                </div>
+                            </div>
+                            <div class="box-optionals-home">
+                                <div>
+                                    <i class="fa fa-gauge fa-xl"></i>
+                                </div>
+                                <div>
+                                    {{ vehicle.mileage_formatted }}
+                                </div>
+                            </div>
+                            <div class="box-optionals-home">
+                                <div>
+                                    <i class="fa fa-tint fa-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="fuel-type-text">{{ vehicle.fuel_type_formatted }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
     {% endfor %}            
 </div>

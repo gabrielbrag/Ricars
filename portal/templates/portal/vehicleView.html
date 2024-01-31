@@ -14,7 +14,7 @@
             </ol>
             <div class="carousel-inner">
               {% for image in vehicle_images %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="carousel-item {% if forloop.first %}active{% endif %} text-center">
                   <img
                     src="{{ image.fileURL }}"
                     alt="{{ vehicle.vehicle_variant }}" class="img-fluid rounded car-image-panel" />
