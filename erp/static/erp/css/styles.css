@@ -1,6 +1,7 @@
 :root{
-    --primary: #FFD523;
-    --background-secondary: #2C2E43;
+    --primary: #f7f6f6;
+    --background-secondary: #26272c;
+    --highlightColor: #ed1c24;
     --cotton: red;
     --smoke: pink;
     --textPrimary:black;
@@ -166,9 +167,15 @@
 }
 
 .btn-primary:hover{
-    background-color:var(--primary);
-    border-color: var(--primary);
+    background-color:var(--highlightColor);
+    border-color: var(--highlightColor);
     color:var(--textPrimary);
+}
+
+.btn-primary:active{
+    background-color:var(--background-secondary) !important;
+    border-color: var(--background-secondary) !important;
+    color:var(--primary) !important;
 }
 
 .flex-login{
@@ -195,4 +202,16 @@
 
 .actionButton {
     color: var(--background-secondary);
+}
+
+.image-logo {
+    height: 8vh;
+}
+
+.address-card {
+    border: solid 1px; 
+    border-color:(--background-color-secondary); 
+    padding:3vh; 
+    margin-top:1vh; 
+    margin-bottom:3vh;
 }

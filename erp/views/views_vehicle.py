@@ -2,7 +2,7 @@ from .views_base import BaseView, DataTableMixin
 from django.views.generic import ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.core.serializers import serialize
 from django.http import JsonResponse
-from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_model_variant, Vehicle_image,  Vehicle_cost_type, Vehicle_cost
+from erp.models import Vehicle, Brand, Vehicle_model, Vehicle_image,  Vehicle_cost_type, Vehicle_cost
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
 from django.forms.widgets import CheckboxInput
@@ -21,7 +21,7 @@ class VehicleListView(DataTableMixin, TemplateView):
         rows = []
         for vehicle in Vehicle.objects.all():
             vehicleValues = []
-            vehicleValues.append(vehicle.vehicle_variant)
+            vehicleValues.append(vehicle.vehicle_model)
             vehicleValues.append(vehicle.model_year)
             vehicleValues.append(vehicle.color)
             vehicleValues.append(vehicle.purchase_price_formatted)
@@ -43,7 +43,7 @@ class VehicleListView(DataTableMixin, TemplateView):
 
 class VehicleBaseView(BaseView):
     model = Vehicle
-    fields = ['vehicle_variant', 
+    fields = ['vehicle_model', 
                 'model_year', 
                 'manufacture_year',
                 'color', 
@@ -59,7 +59,7 @@ class VehicleBaseView(BaseView):
                 
     template_name = 'erp/forms/vehicle_edit.html'
     success_url = reverse_lazy('vehicle_list')
-    fields_manually_created = ['vehicle_variant', 'salesman_observation']   
+    fields_manually_created = ['vehicle_model', 'salesman_observation']   
 
 class VehicleCreateView(VehicleBaseView, CreateView):
     def get_context_data(self, **kwargs):
@@ -101,8 +101,11 @@ class VehicleUpdateView(VehicleBaseView, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         vehicle = self.get_object()  # Get the current vehicle object
-        vehicle_brand = vehicle.vehicle_variant.vehicle_model.brand  # Access the brand through the relationships
+
+        vehicle_brand = vehicle.vehicle_model.brand  # Access the brand through the relationships
         context['vehicle_brand'] = vehicle_brand  # Pass the brand to the template context
+        context['vehicle_model'] = vehicle.vehicle_model
+        context['vehicle_images'] = vehicle.images.all()
 
         cost_types = Vehicle_cost_type.objects.all()
         context['cost_types'] = cost_types 

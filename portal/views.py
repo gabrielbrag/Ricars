@@ -4,11 +4,12 @@ from companies.models import Company, Shop
 
 def home(request):        
     vehicles = Vehicle.objects.filter(sold=False).order_by('sale_value')
-
+    for vehicle in vehicles:
+        print(vehicle)
     company = Company.objects.first()
     shop    = Company.objects.first()
     
-    possible_vehicle_years  = Vehicle.objects.values_list('manufacture_year', flat=True).distinct().order_by('manufacture_year')
+    possible_vehicle_years  = Vehicle.objects.values_list('manufacture_year', flat=True).filter(sold=False).distinct().order_by('manufacture_year')
     
     return render(request, 'portal/stock.html', {"vehicles":vehicles, 
                                             "possible_vehicle_years":possible_vehicle_years,
@@ -21,7 +22,7 @@ def vehiclesPanel(request):
         'maxPrice': 'sale_value__lte',
         'minMileage': 'mileage__gte',
         'maxMileage': 'mileage__lte',
-        'modelType': 'vehicle_variant__vehicle_model__model_type',
+        'modelType': 'vehicle_model__model_type',
         'years': 'manufacture_year__in'
     }
     
@@ -36,7 +37,7 @@ def vehiclesPanel(request):
                 filter_args[model_field] = value
         
     vehicles = Vehicle.objects.filter(sold=False, **filter_args).order_by('sale_value')
-    
+    print(vehicles)
     return render(request, 'portal/vehiclesPanel.html', {"vehicles":vehicles})
 
 def vehicleView(request):

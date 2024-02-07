@@ -5,6 +5,20 @@ from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
+class UserCreationHandler:
+    def create_user(self, username, email, name, document, password):
+        try:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                name=name,
+                document=document,
+                password=password,
+            )
+            return user
+        except ValidationError as e:
+            raise ValueError(', '.join(e.messages))
+
 class Command(BaseCommand):
     help = 'Create a custom user'
 
@@ -29,9 +43,12 @@ class Command(BaseCommand):
             password = getpass('Password: ')
             password2 = getpass('Confirm Password: ')
 
+        # Instantiate the UserCreationHandler
+        user_creation_handler = UserCreationHandler()
+
         try:
-            # Create the user
-            user = User.objects.create_user(
+            # Create the user using the handler
+            user = user_creation_handler.create_user(
                 username=username,
                 email=email,
                 name=name,
@@ -40,5 +57,5 @@ class Command(BaseCommand):
             )
 
             self.stdout.write(self.style.SUCCESS(f'Custom user {username} created successfully.'))
-        except ValidationError as e:
-            self.stdout.write(self.style.ERROR(', '.join(e.messages)))
+        except ValueError as e:
+            self.stdout.write(self.style.ERROR(str(e)))

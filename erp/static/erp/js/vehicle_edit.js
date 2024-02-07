@@ -1,9 +1,8 @@
-const endpoints = {"brandURL":"", "modelURL":"","variantURL":""};
+const endpoints = {"brandURL":"", "modelURL":""};
 
-function setUpEndpoints(brandURL, modelURL, variantURL, vehicle_listURL){
+function setUpEndpoints(brandURL, modelURL, vehicle_listURL){
   endpoints.brandURL          = brandURL;
   endpoints.modelURL          = modelURL;
-  endpoints.variantURL        = variantURL;
   endpoints.vehicle_listURL   = vehicle_listURL;
 }
 
@@ -27,49 +26,28 @@ function loadOptions(url, selectId, defaultValue) {
     });
 }
 
-function loadBrand(defaultBrand, modelId, variantId) {
+function loadBrand(defaultBrand, modelId) {
+  console.log("Valores " + defaultBrand + " modelId")
   loadOptions(endpoints.brandURL, "id_brand", defaultBrand);
   if (defaultBrand) {
-    loadModel(defaultBrand, modelId, variantId);
+    loadModel(defaultBrand, modelId);
   }
 }
 
-function loadModel(brandId, defaultModel, variantId) {
+function loadModel(brandId, defaultModel) {
   const modelSelect = document.getElementById("id_model");
-  const variantSelect = document.getElementById("id_variant");
 
   if (brandId) {
     modelSelect.disabled = false;
-    variantSelect.disabled = true;
-    variantSelect.value = "";
 
     const url = endpoints.modelURL + "?brand=" + brandId;
     loadOptions(url, "id_model", defaultModel);
-
-    if (defaultModel) {
-      loadVariant(defaultModel, variantId);
-    }
   } else {
     modelSelect.disabled = true;
-    variantSelect.disabled = true;
     modelSelect.value = "";
-    variantSelect.value = "";
   }
 }
 
-function loadVariant(modelId, defaultVariant) {
-  const variantSelect = document.getElementById("id_variant");
-
-  if (modelId) {
-    variantSelect.disabled = false;
-
-    const url = endpoints.variantURL + "?vehicle_model=" + modelId;
-    loadOptions(url, "id_variant", defaultVariant);
-  } else {
-    variantSelect.disabled = true;
-    variantSelect.value = "";
-  }
-}
 
 function handleFileSelect(event) {
   const files = event.target.files;

@@ -1,0 +1,89 @@
+{% extends 'erp/masterpage.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" class="mt-4">
+        {% csrf_token %}
+
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="id_company_name" class="form-label">{% trans 'Company Name' %}</label>
+                <input value="{{ company_data.name|default_if_none:"" }}" type="text" name="company_name" class="form-control" id="id_company_name" required>
+            </div>
+        
+            <div class="col-md-6 mb-3">
+                <label for="id_cnpj" class="form-label">{% trans 'CNPJ' %}</label>
+                <input value="{{ company_data.document|default_if_none:"" }}" type="text" name="cnpj" class="form-control" id="id_cnpj" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="id_instagram" class="form-label">{% trans 'Instagram Link' %}</label>
+                <input value="{{ company_data.instagram_link|default_if_none:"" }}" type="text" name="instagram" class="form-control" id="id_instagram">
+            </div>
+        
+            <div class="col-md-4 mb-3">
+                <label for="id_facebook" class="form-label">{% trans 'Facebook Link' %}</label>
+                <input value="{{ company_data.facebook_link|default_if_none:"" }}" type="text" name="facebook" class="form-control" id="id_facebook">
+            </div>
+        
+            <div class="col-md-4 mb-3">
+                <label for="id_whatsapp" class="form-label">{% trans 'Whatsapp Number' %}</label>
+                <input value="{{ company_data.whatsapp_number|default_if_none:"" }}" type="text" name="whatsapp" class="form-control" id="id_whatsapp">
+            </div>
+        </div>
+        
+        <h4>Address</h4>
+        <div class="address-card rounded">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="id_zipcode" class="form-label">{% trans 'Zipcode' %}</label>
+                    <input value="{{ company_data.address_zipcode|default_if_none:"" }}" type="text" name="zipcode" class="form-control" id="id_zipcode">
+                </div>            
+                
+                <div class="col-md-6 mb-3">
+                    <label for="id_street" class="form-label">{% trans 'Street' %}</label>
+                    <input value="{{ company_data.address_street|default_if_none:"" }}" type="text" name="street" class="form-control" id="id_street">
+                </div>
+            
+                <div class="col-md-2 mb-3">
+                    <label for="id_number" class="form-label">{% trans 'Number' %}</label>
+                    <input value="{{ company_data.address_number|default_if_none:"" }}" type="text" name="number" class="form-control" id="id_number">
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="id_state" class="form-label">{% trans 'State' %}</label>
+                    <input value="{{ company_data.address_state|default_if_none:"" }}" type="text" name="state" class="form-control" id="id_state">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="id_city" class="form-label">{% trans 'City' %}</label>
+                    <input value="{{ company_data.address_city|default_if_none:"" }}" type="text" name="city" class="form-control" id="id_city">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="id_neighborhood" class="form-label">{% trans 'Neighborhood' %}</label>
+                    <input value="{{ company_data.address_neighborhood|default_if_none:"" }}" type="text" name="neighborhood" class="form-control" id="id_neighborhood">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_complement" class="form-label">{% trans 'Complement' %}</label>
+                <input value="{{ company_data.address_complement|default_if_none:"" }}" type="text" name="complement" class="form-control" id="id_complement">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_about" class="form-label">{% trans 'About' %}</label>
+            <textarea value="{{ company_data.about_text|default_if_none:"" }}" name="about" class="form-control" id="id_about" rows="5"></textarea>
+        </div>
+    
+        <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+        </form>
+    </div>
+{% endblock %}

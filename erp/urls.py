@@ -1,11 +1,12 @@
 from django.urls                    import path
 from .views.views_brand             import BrandListView, BrandCreateView, BrandUpdateView, BrandDeleteView, brandJSON
 from .views.views_color             import ColorListView, ColorCreateView, ColorUpdateView, ColorDeleteView
-from .views.views_vehicle_model     import VehicleModelListView, VehicleModelCreateView, VehicleModelUpdateView, VehicleModelDeleteView, VehicleModelVariantJSON
+from .views.views_vehicle_model     import VehicleModelListView, VehicleModelCreateView, VehicleModelUpdateView, VehicleModelDeleteView
 from .views.views_cost_type         import VehicleCostTypeListView, VehicleCostTypeCreateView, VehicleCostTypeUpdateView,VehicleCostTypeDeleteView
 from .views.views_vehicle           import VehicleListView, VehicleCreateView, VehicleUpdateView, VehicleDeleteView
 from .views.views_auth              import logout_view, CustomLoginView
 from .views.views_user              import UserListView, UserCreateView, UserUpdateView, UserDeleteView
+from .views.views_company           import CompanyView
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
@@ -33,8 +34,6 @@ urlpatterns = [
     path('vehicle_models/<int:pk>/delete/', VehicleModelDeleteView.as_view(http_method_names=['post']), name='vehicle_model_delete'),
     path('vehicle_models/insert/', VehicleModelCreateView.as_view(), name='vehicle_model_create'),    
 
-    path('vehicle_model_variants/JSON', VehicleModelVariantJSON, name='vehicle_model_variant_json'),
-
     path('cost_type', VehicleCostTypeListView.as_view(), name="vehicle_cost_type_list"),
     path('cost_type/JSON', VehicleCostTypeListView.as_view(json=True), name='vehicle_cost_type_json'),
     path('cost_type/<int:pk>/edit/', VehicleCostTypeUpdateView.as_view(), name='vehicle_cost_type_edit'),
@@ -45,4 +44,6 @@ urlpatterns = [
     path('vehicles/<int:pk>/edit/', VehicleUpdateView.as_view(), name='vehicle_edit'),
     path('vehicles/insert/', VehicleCreateView.as_view(), name='vehicle_create'),
     path('vehicles/<int:pk>/delete/', VehicleDeleteView.as_view(http_method_names=['post']), name='vehicle_delete'),
+
+    path('company', CompanyView.as_view(), name='company_edit')
 ]

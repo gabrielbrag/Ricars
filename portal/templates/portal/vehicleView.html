@@ -17,7 +17,7 @@
                 <div class="carousel-item {% if forloop.first %}active{% endif %} text-center">
                   <img
                     src="{{ image.fileURL }}"
-                    alt="{{ vehicle.vehicle_variant }}" class="img-fluid rounded car-image-panel" />
+                    alt="{{ vehicle.vehicle_model }}" class="img-fluid rounded car-image-panel" />
                 </div>
               {% endfor %}
             </div>
@@ -39,8 +39,8 @@
       <div class="col-lg-4">
           <div class="card" style="padding:10px; margin-bottom:10px; background-color:var(--bgColorSecondary)">
           <h1 class="vehicle-title no-margin">
-            <div class="first-name">{{ vehicle.vehicle_variant.vehicle_model }}</div>
-            <div class="last-name">{{ vehicle.vehicle_variant.variant_name }} / {{ vehicle.model_year }}</div>
+            <div class="first-name">{{ vehicle.vehicle_model }}</div>
+            <div class="last-name">{{ vehicle.model_year }}</div>
           </h1>
           <div class="box-price-detail">
             <h2 class="text-left price-detail text-nowrap">R$ {{ vehicle.sale_value_formatted }}</h2>
@@ -76,7 +76,7 @@
       </div>
         <div>
           <a class="btn-success btn btn-lg btn-block mb-3 text-uppercase"
-            href="https://wa.me/{{ context_company.whatsapp_number_international }}?text={% trans "Hi, I saw the ad on the website and would like to know more about the "%}{{ vehicle.vehicle_variant }}. {% trans "I look forward to hearing from you, thank you!" %}"
+            href="https://wa.me/{{ context_company.whatsapp_number_international }}?text={% trans "Hi, I saw the ad on the website and would like to know more about the "%}{{ vehicle.vehicle_model }}. {% trans "I look forward to hearing from you, thank you!" %}"
             title="{% trans "Speak with us in the whatsapp" %}" target="_blank">
             <i class="fab fa-whatsapp"></i> {% trans "Speak with the store" %}
           </a>

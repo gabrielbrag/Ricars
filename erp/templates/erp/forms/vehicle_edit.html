@@ -25,13 +25,6 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label for="id_variant">{% trans 'Variant' %}</label>
-    <select name="vehicle_variant" id="id_variant" class="form-control" disabled>
-      <option value="">---------</option>
-    </select>
-  </div>
-
   <div class="row">
     {% for field in automatic_fields %}
         {% if forloop.counter0|divisibleby:4 and not forloop.first %}
@@ -70,7 +63,7 @@
   <input type="file" name="images_input" multiple>
   <div class="card mt-3 mb-3">
     <div id="thumbnail-container" class="thumbnail-container card-body">
-      {% for image in vehicle.images.all %}
+      {% for image in vehicle_images %}
         <div class="thumbnail">
           <img src="{{ image.file.url }}" alt="Thumbnail" data-id="{{ image.pk }}">
           <span class="delete-button" data-id="{{ image.pk }}">
@@ -186,23 +179,16 @@
   $(document).ready(function () {
     var brandURL    = "{% url 'brand_json' %}";
     var modelUrl    = "{% url 'vehicle_model_json' %}";
-    var variantUrl  = "{% url 'vehicle_model_variant_json' %}";
     var listURL     = "{% url 'vehicle_list' %}"
 
-    setUpEndpoints(brandURL, modelUrl, variantUrl, listURL);
+    setUpEndpoints(brandURL, modelUrl, listURL);
 
-    loadBrand({{ vehicle_brand.pk|default:"null" }}, {{ vehicle.vehicle_variant.vehicle_model.pk|default:"null" }}, {{ vehicle.vehicle_variant.pk|default:"null" }})
+    loadBrand({{ vehicle_brand.pk|default:"null" }}, {{ vehicle_model.id|default:"null" }})
 
     $("#id_brand").change(function () {
       var brandId = $(this).val();
       loadModel(brandId, null, null);
     });
-
-    // Load variants for the selected model
-    $("#id_model").change(function () {
-      var modelId = $(this).val();
-      loadVariant(modelId, null);
-    })
 
     insertedFiles = [];
     existingFilesIDs = [];
@@ -246,9 +232,6 @@
           lengthChange: false,
           paging: false,
           info: false,
-          {% if variants_JSON != None%}
-            data: JSON.parse('{{ variants_JSON|safe }}'),
-          {% endif %}
           columns: [
           { data: 'cost_name'},
           { data: 'cost_type_id', visible:false },

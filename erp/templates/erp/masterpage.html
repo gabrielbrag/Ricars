@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-background-secondary shadow-sm">
         <div class="container title-bar">
             <a class="navbar-brand brand-title" href="">
-                <p class="primary title-bar"><i class="fas fa-car"></i>RICARS</p>
+                <img class="image-logo" src="{% static "images/logo.png" %}"></img>
             </a>
         </div>
         <div class="container">
@@ -46,6 +46,7 @@
                 <a href="{% url 'vehicle_cost_type_list' %}"><i class="fas fa-dollar-sign"></i> {% trans 'Vehicular cost' %}</a><hr>
                 <a href="{% url 'vehicle_list' %}"><i class="fas fa-check-circle"></i> {% trans 'Stock' %}</a><hr>
                 <a href="{% url 'user_list' %}"><i class="fas fa-user"></i> {% trans 'Users' %}</a><hr>
+                <a href="{% url 'company_edit' %}"><i class="fas fa-building"></i> {% trans 'Company' %}</a><hr>
             </div>
         </div>
         <div class="content main-content col-md-10">

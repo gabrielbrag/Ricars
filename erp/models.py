@@ -31,7 +31,7 @@ class Vehicle_model(models.Model):
     model_name  = models.CharField(verbose_name=_('Model'), max_length=30)
     model_type  = models.CharField(verbose_name=_('Type'), max_length=1, choices=MODEL_TYPE_CHOICES)
     
-    def __str__(self) -> str:
+    def __str__(self) -> str: 
         return self.brand.brand_name + ' ' + self.model_name
 
     @property
@@ -44,17 +44,6 @@ class Vehicle_model(models.Model):
     @property
     def contextual_title(self):
         return self.model_name
-
-class Vehicle_model_variant(models.Model):
-    vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name='variants')
-    variant_name    = models.CharField(max_length=30)
-    
-    def __str__(self) -> str:
-        return str(self.vehicle_model) + ' ' + self.variant_name
-
-    @property
-    def contextual_title(self):
-        return self.variant_name
 
 class Color(models.Model):
     color_name = models.CharField(max_length=30, verbose_name=_('color name'))
@@ -75,7 +64,7 @@ class Vehicle(models.Model):
         ('ELE', _('Eletric'))
     ]    
         
-    vehicle_variant = models.ForeignKey(Vehicle_model_variant, on_delete=models.CASCADE, related_name="variant", null=True, default=None)
+    vehicle_model   = models.ForeignKey(Vehicle_model, on_delete=models.CASCADE, related_name="vehicle_model")
     transmission    = models.CharField(verbose_name=_('transmission'), max_length=1, choices=TRANSMISSION_CHOICES)
     fuel_type       = models.CharField(verbose_name=_('fuel type'), max_length=3, choices=FUEL_TYPE_CHOICES)
     color           = models.ForeignKey(Color, verbose_name=_('color'), on_delete=models.CASCADE)
@@ -102,7 +91,7 @@ class Vehicle(models.Model):
         return self.sale_value is None
 
     def __str__(self) -> str:
-        return '%s - %s' % (str(self.vehicle_variant), self.manufacture_year)
+        return '%s - %s' % (str(self.vehicle_model), self.manufacture_year)
 
     @property
     def purchase_price_formatted(self):
