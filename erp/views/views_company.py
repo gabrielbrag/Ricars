@@ -54,4 +54,4 @@ class CompanyView(View):
         except Exception as e:
             # Handle any exceptions or validation errors
             error_message = _('An error occurred while processing the form.')
-            return render(request, self.template_name, {'error_message': error_message})
+            return redirect(request.META['HTTP_REFERER'])
